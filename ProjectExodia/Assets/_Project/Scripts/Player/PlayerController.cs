@@ -100,7 +100,11 @@ namespace ProjectExodia
             ComputeSwipeDirection(direction);
             if (Physics.SphereCast(_swipeStartPos, swipeSphereRadius, direction, out var hitInfo, distance))
             {
-                print($"i hit something {hitInfo.collider}");
+                if (hitInfo.transform.TryGetComponent<ISlappableEntity>(out var entity))
+                {
+                    entity.PerformSlap();
+                    Debug.Log($"PlayerController: Entity slapped [{entity.GetName()}]");
+                }
             }
             
             Debug.DrawLine(_swipeStartPos, _swipeEndPos, Color.red, 5f);
