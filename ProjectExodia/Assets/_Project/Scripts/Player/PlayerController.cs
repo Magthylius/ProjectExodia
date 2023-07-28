@@ -30,11 +30,11 @@ namespace ProjectExodia
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
         [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
+        [SerializeField] private float swipeSphereRadius = 0.01f;
 
         private TrailRenderer _trailRenderer;
         private Coroutine _trailUpdateRoutine;
         
-        private float _minDistSquared;
         private Vector2 _swipeStartPos;
         private Vector2 _swipeEndPos;
         private float _swipeStartTime;
@@ -47,7 +47,6 @@ namespace ProjectExodia
 
         private void Awake()
         {
-            _minDistSquared = minimumDistance * minimumDistance;
             _trailRenderer = Instantiate(trailRendererPrefab, transform);
         }
 
@@ -93,11 +92,17 @@ namespace ProjectExodia
 
         private void DetectSwipe()
         {
-            var direction = _swipeEndPos - _swipeStartPos;
-            if (direction.sqrMagnitude < _minDistSquared)  return;
+            var distance = Vector3.Distance(_swipeEndPos, _swipeStartPos);
+            if (distance < minimumDistance)  return;
             if (_swipeEndTime - _swipeStartTime > maximumTime) return;
             
-            ComputeSwipeDirection(direction.normalized);
+            var direction = (_swipeEndPos - _swipeStartPos).normalized;
+            ComputeSwipeDirection(direction);
+            if (Physics.SphereCast(_swipeStartPos, swipeSphereRadius, direction, out var hitInfo, distance))
+            {
+                print($"i hit something {hitInfo.collider}");
+            }
+            
             Debug.DrawLine(_swipeStartPos, _swipeEndPos, Color.red, 5f);
         }
 
