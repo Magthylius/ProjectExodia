@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 4530889275936555183}
+  slapAudioData: {fileID: 11400000, guid: 8f1ce03728d91684e8a66fbaf77cfa38, type: 2}
 --- !u!1 &6249811329797091136
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +100,7 @@ MonoBehaviour:
   minimumDistance: 0.05
   maximumTime: 1
   directionThreshold: 0.9
+  swipeSphereRadius: 0.01
 --- !u!114 &4014248103848449666
 MonoBehaviour:
   m_ObjectHideFlags: 0

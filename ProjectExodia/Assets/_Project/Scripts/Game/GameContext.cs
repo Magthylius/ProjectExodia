@@ -11,6 +11,7 @@ namespace ProjectExodia
         [Header("Prefabs")]
         [SerializeField] private PlayerManager playerManagerPrefab;
         [SerializeField] private UIManager uiManagerPrefab;
+        [SerializeField] private AudioManager audioManagerPrefab;
         
         private readonly Dictionary<Type, ManagerBase> _managerDictionary = new();
     
@@ -21,9 +22,10 @@ namespace ProjectExodia
             CreateManager<CameraManager>();
             CreateManager(playerManagerPrefab);
             CreateManager(uiManagerPrefab);
+            CreateManager(audioManagerPrefab);
         }
 
-        public bool GetManager<T>(out T outManager) where T : ManagerBase
+        public bool TryGetManager<T>(out T outManager) where T : ManagerBase
         {
             var type = typeof(T);
             outManager = null;

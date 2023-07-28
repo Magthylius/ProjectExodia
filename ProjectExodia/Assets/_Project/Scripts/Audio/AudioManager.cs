@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -10,14 +8,13 @@ namespace ProjectExodia
         public AudioSource sfxSource;
         public AudioSource bgmSource;
         
-        [SerializeField] float bgmVolume;
-        [SerializeField] float sfxVolume;
+        [SerializeField] private float bgmVolume;
+        [SerializeField] private float sfxVolume;
         
         public void SetVolume()
         {
             PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
             sfxSource.volume = sfxVolume;
-
         }
 
         public void SetBGMVolume()
@@ -28,13 +25,13 @@ namespace ProjectExodia
         
         SoundFile GetSound(AudioData audioType, string audioName)
         {
-            List<SoundFile> temp = new List<SoundFile>(audioType.audioList);
+            List<SoundFile> soundFiles = new List<SoundFile>(audioType.audioList);
 
-            for (int i = 0; i < temp.Count; i++)
+            foreach (var file in soundFiles)
             {
-                if (temp[i].audioName == audioName)
+                if (file.audioName == audioName)
                 {
-                    return temp[i];
+                    return file;
                 }
             }
 

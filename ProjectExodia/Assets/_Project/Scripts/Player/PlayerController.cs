@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -20,7 +21,9 @@ namespace ProjectExodia
     public class PlayerController : MonoBehaviour
     {
         public delegate void SwipeEvent(SwipeDirection direction);
+        public delegate void SlapEvent(ISlappableEntity entity);
         public event SwipeEvent OnPlayerSwiped;
+        public event SlapEvent OnEntitySlapped;
 
         [Header("References")]
         [SerializeField] private PlayerInputHandler inputHandler;
@@ -103,6 +106,7 @@ namespace ProjectExodia
                 if (hitInfo.transform.TryGetComponent<ISlappableEntity>(out var entity))
                 {
                     entity.PerformSlap();
+                    OnEntitySlapped?.Invoke(entity);
                     Debug.Log($"PlayerController: Entity slapped [{entity.GetName()}]");
                 }
             }

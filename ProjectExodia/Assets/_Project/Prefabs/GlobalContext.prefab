@@ -49,3 +49,5 @@ MonoBehaviour:
     type: 3}
   uiManagerPrefab: {fileID: 8179697712700877317, guid: 44b991b7672668e4db33dd9afea607a0,
     type: 3}
+  audioManagerPrefab: {fileID: 5133864557363618597, guid: fa87e63c5b21e9b4ab0e0bb845526a82,
+    type: 3}
