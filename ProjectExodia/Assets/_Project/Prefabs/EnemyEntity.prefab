@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 8490351112481082744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5396077978443694465}
@@ -372,6 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsPlayer: {fileID: 4089522368314602140}
+  despawnOffset: 10
 --- !u!114 &9214087281770529158
 MonoBehaviour:
   m_ObjectHideFlags: 0
