@@ -9,93 +9,82 @@ namespace ProjectExodia
 {
     public class SpawnManager : ManagerBase
     {
-        [SerializeField]private GameObject[] enemyPrefabs;
-        [SerializeField]private GameObject tileManagerObj;
-        [SerializeField] private float SpawnDistance;
-        [SerializeField] private float SpawnGap;
-        [SerializeField]private float spawnTime;
-        [SerializeField]private float yPositionOffset;
+        [SerializeField] private GameObject[] enemyPrefabs;
+        [SerializeField] private float spawnDistance = 70;
+        [SerializeField] private float spawnGap = 4;
+        [SerializeField] private float spawnTime;
+        [SerializeField] private float yPositionOffset;
 
-        private List<GameObject> activeEnemies;
-        private float timerElapsed;
-       
-        private int lastPrefabIndex = 0;
-
-        private TileManager tileManager;
-        public event Action<GameObject> OnDeleteEnemy;
-        
-        private void Start()
-        {
-            activeEnemies = new List<GameObject>();
-            if (tileManagerObj.TryGetComponent<TileManager>(out TileManager pTileManager))
-            {
-                tileManager = pTileManager;
-            }
-            else
-            {
-                Debug.LogError("Missing TileManager, disabling Enemy Manager");
-                gameObject.SetActive(false);
-            }
-        }
+        private TileManager _tileManager;
+        private List<GameObject> _activeEnemies;
+        private float _timerElapsed;
+        private int _lastPrefabIndex = 0;
 
         private void Update()
         {
-            timerElapsed += Time.deltaTime;
+            /*_timerElapsed += Time.deltaTime;
 
-            if (timerElapsed >= spawnTime)
+            if (_timerElapsed >= spawnTime)
             {
                 SpawnEnemy();
-                timerElapsed = 0;
-            }
+                _timerElapsed = 0;
+            }*/
         }
 
-        void SpawnEnemy()
+        public override void Initialize(GameContext gameContext)
         {
-            GameObject goEnemy = Instantiate(enemyPrefabs[RandomPrefabIndex()], transform, true);
+            base.Initialize(gameContext);
+            
+            if (gameContext.TryGetManager(out _tileManager)) return;
+            Debug.LogError($"{this}: Failed to get tile manager. Disabling {this}'s game object.");
+            gameObject.SetActive(false);
 
-            float randomGap = Random.Range(-SpawnGap, SpawnGap);
-
-            goEnemy.transform.position = new Vector3(randomGap, (tileManagerObj.transform.position.y + yPositionOffset),
-                tileManager.GetLastSpawnLocation().z);
-            activeEnemies.Add(goEnemy);
+            if (!gameContext.TryGetComponent<TimerManager>(out var timerManager)) return;
+            timerManager.CreateTimer(SpawnEnemy, spawnTime, true);
         }
 
-        void DeleteEnemy(GameObject pEnemyToRemove)
+        private void SpawnEnemy()
         {
-            GameObject enemyToRemove = activeEnemies.Find(obj => obj == pEnemyToRemove);
-            if (enemyToRemove != null)
-            {
-                Destroy(enemyToRemove, 5.0f);
-                activeEnemies.Remove(pEnemyToRemove);
-            }
+            var goEnemy = Instantiate(enemyPrefabs[RandomPrefabIndex()], transform, true);
+            var randomGap = Random.Range(-spawnGap, spawnGap);
+
+            goEnemy.transform.position = new Vector3(randomGap, (_tileManager.transform.position.y + yPositionOffset),
+                _tileManager.GetLastSpawnLocation().z);
+            _activeEnemies.Add(goEnemy);
+        }
+
+        private void DeleteEnemy(GameObject pEnemyToRemove)
+        {
+            var enemyToRemove = _activeEnemies.Find(obj => obj == pEnemyToRemove);
+            if (enemyToRemove == null) return;
+            Destroy(enemyToRemove, 5.0f);
+            _activeEnemies.Remove(pEnemyToRemove);
         }
         
         private int RandomPrefabIndex()
         {
             if (enemyPrefabs.Length <= 1) return 0;
 
-            int randomIndex = lastPrefabIndex;
+            var randomIndex = _lastPrefabIndex;
             
-            while (randomIndex == lastPrefabIndex)
+            while (randomIndex == _lastPrefabIndex)
                 randomIndex = Random.Range(0, enemyPrefabs.Length);
 
-            lastPrefabIndex = randomIndex;
+            _lastPrefabIndex = randomIndex;
             return randomIndex;
         }
 
         private void OnDrawGizmosSelected()
         {
-
-            Transform tileManagerTransform = tileManagerObj.transform;
-            Vector3 MinBoundaryLocation = new Vector3((tileManagerTransform.position.x + SpawnGap),
-                tileManagerTransform.position.y, tileManagerTransform.position.z);
+            var tileManagerTransform = _tileManager.transform;
+            var position = tileManagerTransform.position;
             
-            Vector3 MaxBoundaryLocation = new Vector3((tileManagerTransform.position.x + -SpawnGap),
-                tileManagerTransform.position.y, tileManagerTransform.position.z);
+            var minBoundaryLocation = new Vector3((position.x + spawnGap), position.y, position.z);
+            var maxBoundaryLocation = new Vector3((position.x - spawnGap), position.y, position.z);
             
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(MinBoundaryLocation, new Vector3( 1, 1, 1));
-            Gizmos.DrawWireCube(MaxBoundaryLocation, new Vector3( 1, 1, 1));
+            Gizmos.DrawWireCube(minBoundaryLocation, Vector3.one);
+            Gizmos.DrawWireCube(maxBoundaryLocation, Vector3.one);
         }
     }
 }

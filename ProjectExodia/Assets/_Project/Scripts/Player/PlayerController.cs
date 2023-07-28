@@ -28,13 +28,17 @@ namespace ProjectExodia
         [SerializeField] private PlayerInputHandler inputHandler;
         [SerializeField] private TrailRenderer trailRendererPrefab;
 
-        [Header("Settings")] 
+        [Header("Settings - Player")] 
+        [SerializeField] private float playerSpeed = 50;
+        
+        [Header("Settings - Swipe")] 
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
         [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
         [SerializeField] private float swipeSphereRadius = 0.01f;
         [SerializeField] private bool wantsDebug = false;
 
+        private Transform _playerTransform;
         private TrailRenderer _trailRenderer;
         private Coroutine _trailUpdateRoutine;
         
@@ -51,6 +55,14 @@ namespace ProjectExodia
         private void Awake()
         {
             _trailRenderer = Instantiate(trailRendererPrefab, transform);
+            _playerTransform = new GameObject("PlayerPawn").transform;
+            _playerTransform.SetParent(transform);
+        }
+
+        private void Update()
+        {
+            if (!_playerTransform) return;
+            _playerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
         }
 
         private void OnEnable()
@@ -128,5 +140,7 @@ namespace ProjectExodia
             else if (ExceedsDotThreshold(Vector2.left)) OnPlayerSwiped?.Invoke(SwipeDirection.Left);
             else if (ExceedsDotThreshold(UpLeft)) OnPlayerSwiped?.Invoke(SwipeDirection.UpLeft);
         }
+
+        public Transform PlayerTransform => _playerTransform;
     }
 }

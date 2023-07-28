@@ -23,5 +23,7 @@ namespace ProjectExodia
                 audioManager.PlaySfx(slapAudioData, "Slap");
             }
         }
+
+        public PlayerController Controller => playerController;
     }
 }

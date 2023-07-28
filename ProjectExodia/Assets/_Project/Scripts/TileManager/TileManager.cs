@@ -7,22 +7,22 @@ namespace ProjectExodia
 {
     public class TileManager : ManagerBase
     {
-        private Transform playerTransform;
-        private int lastPrefabIndex = 0;
-        private List<GameObject> activeTiles;
-        private float lastSpawn = 0.0f;
+        [SerializeField] private GameObject[] tilePrefabs;
+        [SerializeField] private float tileLength = 10.0f;
+        [SerializeField] private float safeZone = 15.0f;
+        [SerializeField] private int maxTileSpawn = 10;
+
+        private Transform _playerTransform;
+        private List<GameObject> _activeTiles;
         
-        [SerializeField]private GameObject[] tilePrefabs;
-        [SerializeField]private float tileLength = 10.0f;
-        [SerializeField]private float safeZone = 15.0f;
-        [SerializeField]private int maxTileSpawn = 10;
+        private int _lastPrefabIndex = 0;
+        private float _lastSpawn = 0.0f;
         
         private void Start()
         {
-            activeTiles = new List<GameObject>();
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            
-            for (int i = 0; i < maxTileSpawn; i++)
+            _activeTiles = new List<GameObject>();
+
+            for (var i = 0; i < maxTileSpawn; i++)
             {
                 SpawnTile();
             }
@@ -30,37 +30,44 @@ namespace ProjectExodia
         
         private void Update()
         {
-            if (playerTransform.position.z - safeZone > (lastSpawn - maxTileSpawn * tileLength))
-            {
-                SpawnTile();
-                DeleteTile();
-            }
+            if (!_playerTransform) return;
+            if (_playerTransform.position.z - safeZone <= _lastSpawn - maxTileSpawn * tileLength) return;
+            
+            SpawnTile();
+            DeleteTile();
         }
-        
+
+        public override void Initialize(GameContext gameContext)
+        {
+            base.Initialize(gameContext);
+            if (gameContext.TryGetManager<PlayerManager>(out var playerManager))
+                _playerTransform = playerManager.Controller.PlayerTransform;
+        }
+
         private void SpawnTile(int tilePrefabIndex = -1)
         {
-            GameObject goTiles = Instantiate(tilePrefabs[RandomPrefabIndex()], transform, true);
-            goTiles.transform.position = Vector3.forward * lastSpawn;
-            lastSpawn += tileLength;
-            activeTiles.Add(goTiles);
+            var goTiles = Instantiate(tilePrefabs[RandomPrefabIndex()], transform, true);
+            goTiles.transform.position = Vector3.forward * _lastSpawn;
+            _lastSpawn += tileLength;
+            _activeTiles.Add(goTiles);
         }
 
         private void DeleteTile()
         {
-            Destroy(activeTiles[0]);
-            activeTiles.RemoveAt(0);
+            Destroy(_activeTiles[0]);
+            _activeTiles.RemoveAt(0);
         }
 
         private int RandomPrefabIndex()
         {
             if (tilePrefabs.Length <= 1) return 0;
 
-            int randomIndex = lastPrefabIndex;
+            int randomIndex = _lastPrefabIndex;
             
-            while (randomIndex == lastPrefabIndex)
+            while (randomIndex == _lastPrefabIndex)
                 randomIndex = Random.Range(0, tilePrefabs.Length);
 
-            lastPrefabIndex = randomIndex;
+            _lastPrefabIndex = randomIndex;
             return randomIndex;
         }
 
@@ -69,6 +76,6 @@ namespace ProjectExodia
             throw new NotImplementedException();
         }
 
-        public Vector3 GetLastSpawnLocation() => Vector3.forward * lastSpawn;
+        public Vector3 GetLastSpawnLocation() => Vector3.forward * _lastSpawn;
     }
 }
