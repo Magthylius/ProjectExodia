@@ -21,7 +21,6 @@ namespace ProjectExodia
         {
             CreateManager<GameManager>();
             CreateManager<TimerManager>();
-            CreateManager<CameraManager>();
             CreateManager(playerManagerPrefab);
             CreateManager(uiManagerPrefab);
             CreateManager(audioManagerPrefab);

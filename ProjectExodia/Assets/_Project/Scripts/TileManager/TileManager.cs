@@ -31,10 +31,11 @@ namespace ProjectExodia
         private void Update()
         {
             if (!_playerTransform) return;
-            if (_playerTransform.position.z - safeZone <= _lastSpawn - maxTileSpawn * tileLength) return;
-            
-            SpawnTile();
-            DeleteTile();
+            if (_playerTransform.position.z - safeZone > _lastSpawn - maxTileSpawn * tileLength)
+            {
+                SpawnTile();
+                DeleteTile();
+            }
         }
 
         public override void Initialize(GameContext gameContext)
