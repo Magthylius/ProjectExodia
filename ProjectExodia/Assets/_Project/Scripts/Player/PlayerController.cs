@@ -1,22 +1,27 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 namespace ProjectExodia
 {
-    [RequireComponent(typeof(PlayerInput), typeof(InputSystemUIInputModule))]
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private PlayerInput playerInput;
-        
-        private void Awake()
+        public void Initialize(GameInitData gameInitData)
         {
-            playerInput.actions.FindAction("Move").performed += OnMoveAction;
+            var input = gameObject.AddComponent<PlayerInput>();
+            var inputModule = gameObject.AddComponent<InputSystemUIInputModule>();
+            input.actions = gameInitData.GetInputActionAsset();
+            input.uiInputModule = inputModule;
+
+            input.ActivateInput();
         }
-        
-        private static void OnMoveAction(InputAction.CallbackContext callbackContext)
+
+        public void OnMove(InputValue inputValue)
         {
-            Debug.Log(callbackContext.ReadValue<Vector2>());
+            Debug.Log(inputValue.Get<Vector2>());
         }
     }
 }

@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 namespace ProjectExodia
 {
     public class PlayerManager : ManagerBase
     {
-        [SerializeField] private PlayerController playerController;
+        private PlayerController _controller;
         
         public override void Initialize(GameContext gameContext)
         {
             base.Initialize(gameContext);
+            
+            _controller = gameObject.AddComponent<PlayerController>();
+            _controller.Initialize(gameContext.GetGameData());
         }
     }
 }
