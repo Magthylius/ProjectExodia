@@ -94,8 +94,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 4014248103848449666}
+  trailRendererPrefab: {fileID: 8002561042973826676, guid: 35f307eaa43957e40a7a86ad4f84752c,
+    type: 3}
   minimumDistance: 0.05
   maximumTime: 1
+  directionThreshold: 0.9
 --- !u!114 &4014248103848449666
 MonoBehaviour:
   m_ObjectHideFlags: 0

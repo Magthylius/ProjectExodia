@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 
@@ -23,12 +24,16 @@ namespace ProjectExodia
 
         [Header("References")]
         [SerializeField] private PlayerInputHandler inputHandler;
+        [SerializeField] private TrailRenderer trailRendererPrefab;
 
         [Header("Settings")] 
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
         [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
 
+        private TrailRenderer _trailRenderer;
+        private Coroutine _trailUpdateRoutine;
+        
         private float _minDistSquared;
         private Vector2 _swipeStartPos;
         private Vector2 _swipeEndPos;
@@ -43,6 +48,7 @@ namespace ProjectExodia
         private void Awake()
         {
             _minDistSquared = minimumDistance * minimumDistance;
+            _trailRenderer = Instantiate(trailRendererPrefab, transform);
         }
 
         private void OnEnable()
@@ -55,17 +61,32 @@ namespace ProjectExodia
             inputHandler.OnStartTouchEvent -= BeginSwipe;
             inputHandler.OnEndTouchEvent -= EndSwipe;
         }
-
+        
         private void BeginSwipe(Vector2 position, float time)
         {
             _swipeStartPos = position;
             _swipeStartTime = time;
+            _trailRenderer.gameObject.SetActive(true);
+            _trailRenderer.transform.position = position;
+            _trailUpdateRoutine = StartCoroutine(TrailUpdate());
+            
+            IEnumerator TrailUpdate()
+            {
+                while (true)
+                {
+                    _trailRenderer.transform.position = inputHandler.PrimaryPosition;
+                    yield return null;
+                }
+            }
         }
         
         private void EndSwipe(Vector2 position, float time)
         {
             _swipeEndPos = position;
             _swipeEndTime = time;
+            _trailRenderer.gameObject.SetActive(false);
+            if (_trailUpdateRoutine != null) StopCoroutine(_trailUpdateRoutine);
+            
             DetectSwipe();
         }
 
