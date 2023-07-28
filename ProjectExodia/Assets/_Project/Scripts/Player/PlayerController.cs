@@ -20,11 +20,15 @@ namespace ProjectExodia
         private Vector2 _swipeEndPos;
         private float _swipeStartTime;
         private float _swipeEndTime;
+        
+        private static Vector2 UpperLeft => new(-0.707106f, 0.707106f);
+        private static Vector2 UpperRight => new(0.707106f, 0.707106f);
+        private static Vector2 BottomLeft => new(-0.707106f, -0.707106f);
+        private static Vector2 BottomRight => new(0.707106f, -0.707106f);
 
         private void Awake()
         {
             _minDistSquared = minimumDistance * minimumDistance;
-            Debug.DrawLine(Vector3.zero, Vector3.one, Color.red, 600f);
         }
 
         private void OnEnable()
@@ -63,22 +67,43 @@ namespace ProjectExodia
 
         private void ComputeSwipeDirection(Vector2 normalizedDirection)
         {
-            if (Vector2.Dot(Vector2.up, normalizedDirection) > directionThreshold)
+            bool ExceedsDotThreshold(in Vector2 lhsDirection) =>
+                Vector2.Dot(lhsDirection, normalizedDirection) > directionThreshold;
+            
+            //! TODO: Remove logs and implement swipes
+            if (ExceedsDotThreshold(Vector2.up))
             {
                 Debug.Log("Swipe Up");
             }
-            if (Vector2.Dot(Vector2.left, normalizedDirection) > directionThreshold)
+            else if (ExceedsDotThreshold(UpperLeft))
+            {
+                Debug.Log("Swipe Up Left");
+            }
+            else if (ExceedsDotThreshold(Vector2.left))
             {
                 Debug.Log("Swipe Left");
             }
-            if (Vector2.Dot(Vector2.right, normalizedDirection) > directionThreshold)
+            else if (ExceedsDotThreshold(BottomLeft))
             {
-                Debug.Log("Swipe Right");
+                Debug.Log("Swipe Bottom Left");
             }
-            if (Vector2.Dot(Vector2.down, normalizedDirection) > directionThreshold)
+            else if (ExceedsDotThreshold(Vector2.down))
             {
                 Debug.Log("Swipe Down");
             }
+            else if (ExceedsDotThreshold(BottomRight))
+            {
+                Debug.Log("Swipe Bottom Right");
+            }
+            else if (ExceedsDotThreshold(Vector2.right))
+            {
+                Debug.Log("Swipe Right");
+            }
+            else if (ExceedsDotThreshold(UpperRight))
+            {
+                Debug.Log("Swipe Bottom Right");
+            }
         }
+        
     }
 }
