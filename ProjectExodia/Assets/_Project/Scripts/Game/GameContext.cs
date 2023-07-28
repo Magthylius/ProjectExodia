@@ -17,6 +17,7 @@ namespace ProjectExodia
         private void Awake()
         {
             CreateManager<GameManager>();
+            CreateManager<TimerManager>();
             CreateManager<CameraManager>();
             CreateManager(playerManagerPrefab);
             CreateManager(uiManagerPrefab);
