@@ -39,7 +39,8 @@ namespace ProjectExodia
         [SerializeField] private float swipeSphereRadius = 0.01f;
         [SerializeField] private bool wantsDebug = false;
 
-        private Transform _playerTransform;
+        public Transform PlayerTransform { get; private set; }
+        
         private TrailRenderer _trailRenderer;
         private Coroutine _trailUpdateRoutine;
         
@@ -53,20 +54,6 @@ namespace ProjectExodia
         private static Vector2 DownLeft => new(-0.707106f, -0.707106f);
         private static Vector2 DownRight => new(0.707106f, -0.707106f);
 
-        private void Awake()
-        {
-            _trailRenderer = Instantiate(trailRendererPrefab, transform);
-            _playerTransform = new GameObject("PlayerPawn").transform;
-            _playerTransform.SetParent(transform);
-            playerCamera.transform.SetParent(_playerTransform);
-        }
-
-        private void Update()
-        {
-            if (!_playerTransform) return;
-            _playerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
-        }
-
         private void OnEnable()
         {
             inputHandler.OnStartTouchEvent += BeginSwipe;
@@ -78,6 +65,25 @@ namespace ProjectExodia
             inputHandler.OnEndTouchEvent -= EndSwipe;
         }
         
+        private void Awake()
+        {
+            _trailRenderer = Instantiate(trailRendererPrefab, transform);
+            PlayerTransform = new GameObject("PlayerPawn").transform;
+            PlayerTransform.SetParent(transform);
+            playerCamera.transform.SetParent(PlayerTransform);
+        }
+
+        private void Start()
+        {
+            inputHandler.SetCamera(playerCamera);
+        }
+
+        private void Update()
+        {
+            if (!PlayerTransform) return;
+            PlayerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
+        }
+
         private void BeginSwipe(Vector2 position, float time)
         {
             _swipeStartPos = position;
@@ -142,7 +148,5 @@ namespace ProjectExodia
             else if (ExceedsDotThreshold(Vector2.left)) OnPlayerSwiped?.Invoke(SwipeDirection.Left);
             else if (ExceedsDotThreshold(UpLeft)) OnPlayerSwiped?.Invoke(SwipeDirection.UpLeft);
         }
-
-        public Transform PlayerTransform => _playerTransform;
     }
 }
