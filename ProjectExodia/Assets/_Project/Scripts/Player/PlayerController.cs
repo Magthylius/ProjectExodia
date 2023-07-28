@@ -68,6 +68,7 @@ namespace ProjectExodia
             _swipeStartTime = time;
             _trailRenderer.gameObject.SetActive(true);
             _trailRenderer.transform.position = position;
+            _trailRenderer.Clear();
             _trailUpdateRoutine = StartCoroutine(TrailUpdate());
             
             IEnumerator TrailUpdate()
