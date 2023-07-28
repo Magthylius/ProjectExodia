@@ -10,7 +10,7 @@ namespace ProjectExodia
         
         [Header("Prefabs")]
         [SerializeField] private PlayerManager playerManagerPrefab;
-        [SerializeField] private UIManager uiPrefab;
+        [SerializeField] private UIManager uiManagerPrefab;
         
         private readonly Dictionary<Type, ManagerBase> _managerDictionary = new();
     
@@ -19,7 +19,7 @@ namespace ProjectExodia
             CreateManager<GameManager>();
             CreateManager<CameraManager>();
             CreateManager(playerManagerPrefab);
-            CreateManager(uiPrefab);
+            CreateManager(uiManagerPrefab);
         }
 
         public bool GetManager<T>(out T outManager) where T : ManagerBase
