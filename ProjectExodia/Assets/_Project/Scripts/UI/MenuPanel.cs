@@ -8,12 +8,12 @@ namespace ProjectExodia
     {
         public virtual void ShowPanel()
         {
-          
+            gameObject.SetActive(true);
         }
 
         public virtual void HidePanel()
         {
-            
+            gameObject.SetActive(false);
         }
     }
 }
