@@ -119,3 +119,5 @@ MonoBehaviour:
     type: 3}
   mainHUDPrefab: {fileID: 8401946867043273608, guid: e2bd973604d81b947b48669128427fd3,
     type: 3}
+  debugPanelPrefab: {fileID: 6054061846410516651, guid: 2c6d778b914afb34fbc2142acb4e3435,
+    type: 3}
