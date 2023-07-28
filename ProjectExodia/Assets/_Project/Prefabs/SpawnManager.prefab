@@ -49,4 +49,4 @@ MonoBehaviour:
   spawnDistance: 70
   spawnGap: 4
   spawnTime: 0.2
-  yPositionOffset: 0
+  yPositionOffset: 0.5
