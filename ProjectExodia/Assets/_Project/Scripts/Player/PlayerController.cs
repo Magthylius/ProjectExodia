@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -34,6 +33,7 @@ namespace ProjectExodia
         [SerializeField] private float maximumTime = 1f;
         [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
         [SerializeField] private float swipeSphereRadius = 0.01f;
+        [SerializeField] private bool wantsDebug = false;
 
         private TrailRenderer _trailRenderer;
         private Coroutine _trailUpdateRoutine;
@@ -107,11 +107,11 @@ namespace ProjectExodia
                 {
                     entity.PerformSlap();
                     OnEntitySlapped?.Invoke(entity);
-                    Debug.Log($"PlayerController: Entity slapped [{entity.GetName()}]");
+                    if (wantsDebug) Debug.Log($"PlayerController: Entity slapped [{entity.GetName()}]");
                 }
             }
             
-            Debug.DrawLine(_swipeStartPos, _swipeEndPos, Color.red, 5f);
+            if (wantsDebug) Debug.DrawLine(_swipeStartPos, _swipeEndPos, Color.red, 5f);
         }
 
         private void ComputeSwipeDirection(Vector2 normalizedDirection)
