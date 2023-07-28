@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
     public class GameContext : MonoBehaviour
     {
         [SerializeField] private GameInitData gameInitData;
+        
+        [Header("Prefabs")]
         [SerializeField] private PlayerManager playerManagerPrefab;
+        [SerializeField] private UIManager uiPrefab;
         
         private readonly Dictionary<Type, ManagerBase> _managerDictionary = new();
     
@@ -17,6 +19,7 @@ namespace ProjectExodia
             CreateManager<GameManager>();
             CreateManager<CameraManager>();
             CreateManager(playerManagerPrefab);
+            CreateManager(uiPrefab);
         }
 
         public bool GetManager<T>(out T outManager) where T : ManagerBase
