@@ -551,7 +551,7 @@ MonoBehaviour:
           Initialized: 1
         RemapCurveZero: 0
         RemapCurveZeroAlt: 0
-        RemapCurveOne: 0.25
+        RemapCurveOne: 0.5
         RemapCurveOneAlt: 1
         AnimateX: 0
         AnimatePositionTweenX:
@@ -16366,7 +16366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectsPlayer: {fileID: 2895137673304360023}
   despawnOffset: 10
-  allowMultipleSlaps: 1
+  allowMultipleSlaps: 0
 --- !u!114 &9214087281770529158
 MonoBehaviour:
   m_ObjectHideFlags: 0
