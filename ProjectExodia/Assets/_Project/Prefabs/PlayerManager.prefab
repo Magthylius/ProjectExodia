@@ -237,11 +237,14 @@ MonoBehaviour:
   trailRendererPrefab: {fileID: 8002561042973826676, guid: 35f307eaa43957e40a7a86ad4f84752c,
     type: 3}
   playerSpeed: 50
+  tapDistance: 100
+  enemyLayer: 6
   minimumDistance: 0.05
   maximumTime: 1
   directionThreshold: 0.9
   swipeSphereRadius: 0.01
   wantsDebug: 0
+  stopMovement: 0
 --- !u!114 &4014248103848449666
 MonoBehaviour:
   m_ObjectHideFlags: 0
