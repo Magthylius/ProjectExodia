@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefabs:
-  - {fileID: 3119347597049561901, guid: 5f28adb5f90793941ae7948beb14c14f, type: 3}
-  tileLength: 10
-  safeZone: 15
-  maxTileSpawn: 15
+  - {fileID: 3620862042524265326, guid: 6d3c25a1a211d3044b6d97d4ff72ba38, type: 3}
+  tileLength: 50
+  safeZone: 75
+  maxTileSpawn: 5
   disableSpawn: 0
 --- !u!23 &3940693341630341028
 MeshRenderer:

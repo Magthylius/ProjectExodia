@@ -79,5 +79,6 @@ namespace ProjectExodia
         }
 
         public Vector3 GetLastSpawnLocation() => Vector3.forward * _lastSpawn;
+        public float GetTileWidth() => tilePrefabs[0].GetComponentInChildren<MeshFilter>().sharedMesh.bounds.size.x;
     }
 }

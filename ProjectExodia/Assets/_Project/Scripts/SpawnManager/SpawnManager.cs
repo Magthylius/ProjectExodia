@@ -7,12 +7,15 @@ namespace ProjectExodia
     public class SpawnManager : ManagerBase
     {
         [SerializeField] private EnemyEntity[] enemyEntityPrefabs;
-        [SerializeField] private float spawnDistance = 70;
-        [SerializeField] private float spawnGap = 4;
-        [SerializeField] private float spawnTime;
+        [SerializeField] private SpawnPattern[] spawnPatterns;
+        [SerializeField] private float spawnDistanceBetweenEnemy = 70;
+        [SerializeField] private float spawnYAxisGap = 4;
+        [SerializeField] private float initialSpawnDistance;
         [SerializeField] private float yPositionOffset;
+        [SerializeField] private float randomOffsetSpawn = 0.0f;
         [SerializeField] private bool disableSpawn = false;
-
+        [SerializeField] private float marginBoundSize = 1.0f;
+        
         private readonly List<EnemyEntity> _activeEnemies = new();
         private TileManager _tileManager;
         private PlayerManager _playerManager;
@@ -20,6 +23,12 @@ namespace ProjectExodia
         private float _ySpawnPosition;
         private float _timerElapsed;
         private int _lastPrefabIndex = 0;
+
+        private float _meshBoundSize;
+        private float _snapshotDistance;
+        private int _currentSpawnIndex = 0;
+        private int _randomSpawnPatternPrefab = 0;
+        private float _pawnDistanceFromGap;
 
         public override void Initialize(GameContext gameContext)
         {
@@ -46,8 +55,27 @@ namespace ProjectExodia
                 return;
             }
             
-            timerManager.CreateTimer(SpawnEnemy, spawnTime, true);
-            _ySpawnPosition =_tileManager.transform.position.y + yPositionOffset;
+            // timerManager.CreateTimer(SpawnEnemy, spawnTime, true);
+            _ySpawnPosition = _tileManager.transform.position.y + yPositionOffset;
+            _snapshotDistance = _playerManager.Controller.PlayerTransform.position.z;
+            _snapshotDistance = initialSpawnDistance;
+            _meshBoundSize = _tileManager.GetTileWidth();
+        }
+
+        private void Update()
+        {
+            if (_playerManager.Controller.PlayerTransform.position.z > _snapshotDistance + spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp)
+            {
+                SpawnEnemy();
+                _snapshotDistance += spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp;
+                _currentSpawnIndex++;
+                if (spawnPatterns[_randomSpawnPatternPrefab].patternList.Count <= _currentSpawnIndex)
+                {
+                    _randomSpawnPatternPrefab = RandomPrefabIndex(spawnPatterns);
+                    _currentSpawnIndex = 0;
+                    _snapshotDistance += spawnPatterns[_randomSpawnPatternPrefab].spawnDistanceBetweenEachPattern;
+                }
+            }
         }
 
         private void SpawnEnemy()
@@ -55,11 +83,18 @@ namespace ProjectExodia
             if (disableSpawn) return;
             if (enemyEntityPrefabs.Length <= 0) return;
             
-            var enemy = Instantiate(enemyEntityPrefabs[RandomPrefabIndex()], transform, true);
+            var enemy = Instantiate(enemyEntityPrefabs[RandomPrefabIndex(enemyEntityPrefabs)], transform, true);
             enemy.Initialize(_playerManager.Controller.PlayerTransform);
-            var randomGap = Random.Range(-spawnGap, spawnGap);
             
-            enemy.transform.position = new Vector3(randomGap, _ySpawnPosition, _tileManager.GetLastSpawnLocation().z);
+            var spawnIndex = spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].spawnIndex;
+            var segment = (_meshBoundSize - marginBoundSize) / 10;
+            var xAxisLocation = Random.Range(-randomOffsetSpawn, randomOffsetSpawn);
+            var zAxisLocation = _snapshotDistance + spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp +
+                                spawnDistanceBetweenEnemy;
+            
+            xAxisLocation += segment * spawnIndex;
+            
+            enemy.transform.position = new Vector3(xAxisLocation, _ySpawnPosition, zAxisLocation);
             _activeEnemies.Add(enemy);
         }
 
@@ -71,14 +106,14 @@ namespace ProjectExodia
             _activeEnemies.Remove(enemy);
         }
         
-        private int RandomPrefabIndex()
+        private int RandomPrefabIndex<T>(IReadOnlyCollection<T> array)
         {
-            if (enemyEntityPrefabs.Length <= 1) return 0;
+            if (array.Count <= 1) return 0;
 
             var randomIndex = _lastPrefabIndex;
             
             while (randomIndex == _lastPrefabIndex)
-                randomIndex = Random.Range(0, enemyEntityPrefabs.Length);
+                randomIndex = Random.Range(0, array.Count);
 
             _lastPrefabIndex = randomIndex;
             return randomIndex;
@@ -89,8 +124,8 @@ namespace ProjectExodia
             var tileManagerTransform = _tileManager.transform;
             var position = tileManagerTransform.position;
             
-            var minBoundaryLocation = new Vector3((position.x + spawnGap), position.y, position.z);
-            var maxBoundaryLocation = new Vector3((position.x - spawnGap), position.y, position.z);
+            var minBoundaryLocation = new Vector3((position.x + spawnYAxisGap), position.y, position.z);
+            var maxBoundaryLocation = new Vector3((position.x - spawnYAxisGap), position.y, position.z);
             
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(minBoundaryLocation, Vector3.one);

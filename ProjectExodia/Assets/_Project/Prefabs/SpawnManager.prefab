@@ -46,8 +46,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyEntityPrefabs:
   - {fileID: 7628493325160325906, guid: 3d863c515877be345b880f312f9b3d86, type: 3}
-  spawnDistance: 70
-  spawnGap: 4
-  spawnTime: 0.2
+  spawnPatterns:
+  - {fileID: 11400000, guid: 64b613efb85315b448b307aade2a42ec, type: 2}
+  - {fileID: 11400000, guid: af574f2f666fafd4389639b8c13b6a28, type: 2}
+  - {fileID: 11400000, guid: 58eee6973e762d74ca83676bd1e14e3e, type: 2}
+  spawnDistanceBetweenEnemy: 70
+  spawnYAxisGap: 4
+  initialSpawnDistance: 0
   yPositionOffset: 0.5
+  randomOffsetSpawn: 0.5
   disableSpawn: 0
+  meshBoundSize: 0
+  marginBoundSize: 2.5
