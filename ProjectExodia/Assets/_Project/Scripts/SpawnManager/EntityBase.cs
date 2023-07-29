@@ -19,7 +19,6 @@ namespace ProjectExodia
         {
             if (!allowMultipleSlaps && WasSlapped) return false;
             WasSlapped = true;
-            Destroy(gameObject);
             return true;
         }
 

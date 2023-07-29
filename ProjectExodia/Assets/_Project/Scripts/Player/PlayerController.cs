@@ -113,27 +113,8 @@ namespace ProjectExodia
         {
             var mouseRay = inputHandler.PrimaryRay;
             if (wantsDebug) Debug.DrawRay(mouseRay.origin, mouseRay.direction);
-
-            if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
-
-            var hitLayer = hitInfo.transform.gameObject.layer;
-            if (hitLayer == entityLayer)
-            {
-                var entity = hitInfo.transform.GetComponent<ISlappableEntity>();
-                if (entity == null) return;
             
-                var slapSuccessful = entity.PerformSlap();
-                if (slapSuccessful) OnEntitySlapped?.Invoke(entity);
-            
-                if (wantsDebug) Debug.Log($"I hit {hitInfo.transform}");
-            }
-            else if (hitLayer == playerLayer)
-            {
-                var player = hitInfo.transform.GetComponent<PlayerCharacter>();
-                if (!player) return;
-                
-                OnPlayerTriggered?.Invoke(player);
-            }
+            Character.PerformSlap();
         }
 
         public void SlapEntity(ISlappableEntity entity) => OnEntitySlapped?.Invoke(entity);

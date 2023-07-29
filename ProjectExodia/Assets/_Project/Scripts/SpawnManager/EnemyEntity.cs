@@ -28,15 +28,12 @@ namespace ProjectExodia
         public override bool PerformSlap()
         {
             if (!base.PerformSlap()) return false;
-
             effectsPlayer.PlayFeedbacks();
             return true;
         }
 
         public override void PerformCollision()
         {
-            //if (_playerCharacter) _playerCharacter.TakeHordeDamage();
-            Destroy(gameObject);
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectExodia
@@ -7,14 +9,15 @@ namespace ProjectExodia
     {
         public delegate void CharacterEvent();
         public event CharacterEvent OnBananaPickup;
-
-        [SerializeField] private SphereCollider bananaSlapCollider;
+        
         [SerializeField] private float bananaSlapDuration = 10f;
 
         private PlayerController _playerController;
-        
+        private HashSet<EntityBase> _entitiesInRange = new();
+
         private Coroutine _bananaSlapRoutine;
         private bool _isInBananaSlapMode = false;
+        
         public bool IsInBananaSlapMode
         {
             get => _isInBananaSlapMode;
@@ -22,7 +25,6 @@ namespace ProjectExodia
             {
                 Debug.Log($"Banana slap mode: {value}");
                 _isInBananaSlapMode = value;
-                bananaSlapCollider.enabled = value;
 
                 if (!value) return;
 
@@ -46,25 +48,26 @@ namespace ProjectExodia
         {
             var entity = other.transform.GetComponent<EntityBase>();
             if (!entity) return;
+            _entitiesInRange.Add(entity);
+            //Debug.Log($"Trigger entry {entity.GetName()}");
 
             if (_isInBananaSlapMode)
             {
                 //! TODO: do something
-                entity.PerformSlap();
-                _playerController.SlapEntity(entity);
+                PerformSlap();
                 return;
             }
             
             entity.PerformCollision();
+        }
 
-            if (entity is BananaEntity)
-            {
-                OnBananaPickup?.Invoke();
-            }
-            else if (entity is EnemyEntity)
-            {
-                TakeHordeDamage();
-            }
+        private void OnTriggerExit(Collider other)
+        {
+            var entity = other.transform.GetComponent<EntityBase>();
+            if (!entity || !_entitiesInRange.Contains(entity)) return;
+            _entitiesInRange.Remove(entity);
+            
+            //Debug.Log($"Trigger exit {entity.GetName()}");
         }
 
         public void Initialize(PlayerController controller)
@@ -72,6 +75,17 @@ namespace ProjectExodia
             _playerController = controller;
         }
 
+        public void PerformSlap()
+        {
+            //Debug.Log($"Slap performed, entities {_entitiesInRange.Count}");
+            foreach (var entity in _entitiesInRange)
+            {
+                _playerController.SlapEntity(entity);
+            }
+            
+            _entitiesInRange.Clear();
+        }
+        
         public void TakeHordeDamage()
         {
             ScoreData.IncreaseMultiplier(-ScoreData.MULTIPLIER_BASE_INCREMENT);
