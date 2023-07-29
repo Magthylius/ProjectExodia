@@ -103,8 +103,9 @@ MonoBehaviour:
   playerSpeed: 50
   xMovementRange: 5
   spawnOffset: {x: 0, y: 1.1, z: 0}
+  playerLayer: 7
   tapDistance: 100
-  enemyLayer: 6
+  entityLayer: 6
   dragMaxDistance: 200
   dragSensitivity: 0.1
   minimumDistance: 0.05

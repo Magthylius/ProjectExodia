@@ -17,6 +17,7 @@ namespace ProjectExodia
         {
             base.Initialize(gameContext);
             playerController.OnEntitySlapped += OnEntitySlapped;
+            playerController.OnPlayerTriggered += OnPlayerTriggered;
             
             if (gameContext.TryGetManager(out CameraManager cameraManager))
                 playerController.Initialize(cameraManager);
@@ -36,16 +37,16 @@ namespace ProjectExodia
             }
         }
 
-        private void ActivateAbility()
-        {
-            
-        }
-        
-        public void UseGoldenBananas()
+        private void OnPlayerTriggered(PlayerCharacter playerCharacter)
         {
             if (_goldenBananas < goldenBananaCost) return;
             _goldenBananas -= goldenBananaCost;
             ActivateAbility();
+        }
+
+        private void ActivateAbility()
+        {
+            Debug.Log("Ability activated");
         }
 
         public PlayerController Controller => playerController;

@@ -22,8 +22,10 @@ namespace ProjectExodia
     {
         public delegate void SwipeEvent(SwipeDirection direction);
         public delegate void SlapEvent(ISlappableEntity entity);
+        public delegate void PlayerEvent(PlayerCharacter playerCharacter);
         public event SwipeEvent OnPlayerSwiped;
         public event SlapEvent OnEntitySlapped;
+        public event PlayerEvent OnPlayerTriggered;
 
         [Header("References")]
         [SerializeField] private PlayerInputHandler inputHandler;
@@ -34,6 +36,7 @@ namespace ProjectExodia
         [SerializeField] private float playerSpeed = 50;
         [SerializeField] private float xMovementRange = 5f;
         [SerializeField] private Vector3 spawnOffset;
+        [SerializeField, Layer] private int playerLayer = 7;
 
         [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
@@ -115,15 +118,25 @@ namespace ProjectExodia
             if (wantsDebug) Debug.DrawRay(mouseRay.origin, mouseRay.direction);
 
             if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
-            if (hitInfo.transform.gameObject.layer != entityLayer) return;
+
+            var hitLayer = hitInfo.transform.gameObject.layer;
+            if (hitLayer == entityLayer)
+            {
+                var entity = hitInfo.transform.GetComponent<ISlappableEntity>();
+                if (entity == null) return;
             
-            var entity = hitInfo.transform.GetComponent<ISlappableEntity>();
-            if (entity == null) return;
+                var slapSuccessful = entity.PerformSlap();
+                if (slapSuccessful) OnEntitySlapped?.Invoke(entity);
             
-            var slapSuccessful = entity.PerformSlap();
-            if (slapSuccessful) OnEntitySlapped?.Invoke(entity);
-            
-            if (wantsDebug) Debug.Log($"I hit {hitInfo.transform}");
+                if (wantsDebug) Debug.Log($"I hit {hitInfo.transform}");
+            }
+            else if (hitLayer == playerLayer)
+            {
+                var player = hitInfo.transform.GetComponent<PlayerCharacter>();
+                if (!player) return;
+                
+                OnPlayerTriggered?.Invoke(player);
+            }
         }
 
         #region Swipe Functions
