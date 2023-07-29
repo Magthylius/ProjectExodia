@@ -32,15 +32,19 @@ namespace ProjectExodia
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
 
-        [Header("Settings - Player")] 
+        [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
+        [SerializeField, Layer] private int enemyLayer = 5;
         
         [Header("Settings - Swipe")] 
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
         [SerializeField, Range(0f, 1f)] private float directionThreshold = 0.9f;
         [SerializeField] private float swipeSphereRadius = 0.01f;
+        
+        [Header("Settings - Debug")]
         [SerializeField] private bool wantsDebug = false;
+        [SerializeField] private bool stopMovement = false;
 
         public Transform PlayerTransform { get; private set; }
         
@@ -82,18 +86,18 @@ namespace ProjectExodia
 
         private void Update()
         {
-            if (!PlayerTransform) return;
+            if (!PlayerTransform || stopMovement) return;
             PlayerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
         }
 
         private void BeginTap(Vector2 position, float time)
         {
             var mouseRay = inputHandler.PrimaryRay;
+            if (wantsDebug) Debug.DrawRay(mouseRay.origin, mouseRay.direction);
+
             if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
-            if (wantsDebug)
-            {
-                Debug.Log($"I hit {hitInfo.transform}");
-            }
+            if (hitInfo.transform.gameObject.layer != enemyLayer) return;
+            if (wantsDebug) Debug.Log($"I hit {hitInfo.transform}");
         }
 
         #region Swipe Functions
