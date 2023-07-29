@@ -24,14 +24,15 @@ namespace ProjectExodia
 
         private float _ySpawnPosition;
         private float _timerElapsed;
-        private int _lastPrefabIndex = 0;
+        private int _lastEntityIndex = 0;
+        private int _lastPatternIndex = 0;
 
         private float _meshBoundSize;
         private float _snapshotDistance;
         private int _currentSpawnIndex = 0;
         private int _randomSpawnPatternPrefab = 0;
         private float _pawnDistanceFromGap;
-
+        
         public override void Initialize(GameContext gameContext)
         {
             base.Initialize(gameContext);
@@ -74,8 +75,10 @@ namespace ProjectExodia
                 if (spawnPatterns[_randomSpawnPatternPrefab].patternList.Count <= _currentSpawnIndex)
                 {
                     _randomSpawnPatternPrefab = RandomPrefabIndex(spawnPatterns);
+                    
                     _currentSpawnIndex = 0;
                     _snapshotDistance += spawnPatterns[_randomSpawnPatternPrefab].spawnDistanceBetweenEachPattern;
+                    _lastPatternIndex = _randomSpawnPatternPrefab;
                 }
             }
         }
@@ -108,16 +111,29 @@ namespace ProjectExodia
             _activeEntities.Remove(enemy);
         }
         
-        private int RandomPrefabIndex<T>(IReadOnlyCollection<T> array)
+        private int RandomPrefabIndex(EntityBase[] array)
         {
-            if (array.Count <= 1) return 0;
+            if (array.Length <= 1) return 0;
 
-            var randomIndex = _lastPrefabIndex;
+            var randomIndex = _lastEntityIndex;
             
-            while (randomIndex == _lastPrefabIndex)
-                randomIndex = Random.Range(0, array.Count);
+            while (randomIndex == _lastEntityIndex)
+                randomIndex = Random.Range(0, array.Length);
 
-            _lastPrefabIndex = randomIndex;
+            _lastEntityIndex = randomIndex;
+            return randomIndex;
+        }
+        
+        private int RandomPrefabIndex(SpawnPattern[] array)
+        {
+            if (array.Length <= 1) return 0;
+
+            var randomIndex = _lastPatternIndex;
+            
+            while (randomIndex == _lastPatternIndex)
+                randomIndex = Random.Range(0, array.Length);
+
+            _lastPatternIndex = randomIndex;
             return randomIndex;
         }
     }
