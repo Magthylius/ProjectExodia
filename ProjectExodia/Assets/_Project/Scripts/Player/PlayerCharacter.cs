@@ -56,7 +56,7 @@ namespace ProjectExodia
             }
             
             entity.PerformCollision();
-            
+
             if (entity is BananaEntity)
             {
                 OnBananaPickup?.Invoke();
@@ -74,7 +74,7 @@ namespace ProjectExodia
 
         public void TakeHordeDamage()
         {
-            
+            ScoreData.IncreaseMultiplier(-ScoreData.MULTIPLIER_BASE_INCREMENT);
         }
     }
 }
