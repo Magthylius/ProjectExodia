@@ -14,6 +14,6 @@ namespace ProjectExodia
             goBananaFireObject.SetActive(false);
         }
 
-        public void SetGoBananaFire(bool active) => goBananaFireObject.SetActive(true);
+        public void SetGoBananaFire(bool active) => goBananaFireObject.SetActive(active);
     }
 }
