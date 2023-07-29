@@ -9,6 +9,7 @@ namespace ProjectExodia
         [SerializeField] private MainMenuPanel mainMenuPrefab;
         [SerializeField] private MainHUDPanel mainHUDPrefab;
         [SerializeField] private DebugPanel debugPanelPrefab;
+        [SerializeField] private EffectsPanel effectsPanelPrefab;
         
         private readonly Dictionary<Type, MenuPanel> _menuPanels = new();
         private readonly List<MenuPanel> _shownPanels = new();
@@ -18,6 +19,7 @@ namespace ProjectExodia
             CreatePanel(mainMenuPrefab);
             CreatePanel(mainHUDPrefab);
             CreatePanel(debugPanelPrefab, true);
+            CreatePanel(effectsPanelPrefab, true);
         }
 
         private void CreatePanel<T>(T panelPrefab, bool showPanel = false) where T : MenuPanel
@@ -35,13 +37,13 @@ namespace ProjectExodia
             _menuPanels.Add(classType, panel);
         }
 
-        public void ShowPanel<T>(bool closeOtherPanels = true) where T : MenuPanel
+        public T ShowPanel<T>(bool closeOtherPanels = true) where T : MenuPanel
         {
             var classType = typeof(T);
             if (!_menuPanels.ContainsKey(classType))
             {
                 Debug.LogWarning("Failed to show non-existent panel.");
-                return;
+                return null;
             }
 
             var panel = _menuPanels[classType];
@@ -56,20 +58,34 @@ namespace ProjectExodia
             }
             
             _shownPanels.Add(panel);
+            return panel as T;
         }
 
-        public void HidePanel<T>() where T : MenuPanel
+        public T HidePanel<T>() where T : MenuPanel
         {
             var classType = typeof(T);
             if (!_menuPanels.ContainsKey(classType))
             {
                 Debug.LogWarning("Failed to hide non-existent panel.");
-                return;
+                return null;
             }
             
             var panel = _menuPanels[classType];
             panel.HidePanel();
             _shownPanels.Remove(panel);
+            return panel as T;
+        }
+
+        public T GetPanel<T>() where T : MenuPanel
+        {
+            var classType = typeof(T);
+            if (!_menuPanels.ContainsKey(classType))
+            {
+                Debug.LogWarning("Failed to hide non-existent panel.");
+                return null;
+            }
+            
+            return _menuPanels[classType] as T;
         }
     }
 }

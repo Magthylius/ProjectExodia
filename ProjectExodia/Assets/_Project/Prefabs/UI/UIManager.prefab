@@ -121,3 +121,5 @@ MonoBehaviour:
     type: 3}
   debugPanelPrefab: {fileID: 6054061846410516651, guid: 2c6d778b914afb34fbc2142acb4e3435,
     type: 3}
+  effectsPanelPrefab: {fileID: 6848241685158460272, guid: 75bad6e1304f9394785c203cb72f9de8,
+    type: 3}
