@@ -9,6 +9,7 @@ namespace ProjectExodia
         [SerializeField] private float despawnOffset = 10.0f;
 
         private Transform _playerTransform;
+        private bool _wasSlapped;
         
         private void Update()
         {
@@ -23,11 +24,16 @@ namespace ProjectExodia
             _playerTransform = playerTransform;
         }
 
-        public void PerformSlap()
+        public bool PerformSlap()
         {
+            if (_wasSlapped) return false;
+            
+            _wasSlapped = true;
             effectsPlayer.PlayFeedbacks();
+            return true;
         }
 
+        public bool GetWasSlapped() => _wasSlapped;
         public string GetName() => gameObject.name;
     }
 }

@@ -97,6 +97,13 @@ namespace ProjectExodia
 
             if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
             if (hitInfo.transform.gameObject.layer != enemyLayer) return;
+            
+            var entity = hitInfo.transform.GetComponent<ISlappableEntity>();
+            if (entity == null) return;
+            
+            var slapSuccessful = entity.PerformSlap();
+            if (slapSuccessful) OnEntitySlapped?.Invoke(entity);
+            
             if (wantsDebug) Debug.Log($"I hit {hitInfo.transform}");
         }
 
