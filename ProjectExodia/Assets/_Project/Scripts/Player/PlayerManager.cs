@@ -39,6 +39,7 @@ namespace ProjectExodia
             }
             else if (entity is EnemyEntity)
             {
+                entity.PerformSlap();
                 ScoreData.AddScore(ScoreData.ENEMY_BASE_SCORE);
                 ScoreData.IncreaseMultiplier(ScoreData.MULTIPLIER_BASE_INCREMENT);
             }
@@ -46,9 +47,9 @@ namespace ProjectExodia
 
         private void OnPlayerTriggered(PlayerCharacter playerCharacter)
         {
-            if (_goldenBananas < goldenBananaCost) return;
+            /*if (_goldenBananas < goldenBananaCost) return;
             _goldenBananas -= goldenBananaCost;
-            ActivateAbility();
+            ActivateAbility();*/
         }
 
         private void GainBanana()
@@ -57,6 +58,11 @@ namespace ProjectExodia
             {
                 _goldenBananas++;
                 Debug.Log(_goldenBananas);
+            }
+            else
+            {
+                _goldenBananas = 0;
+                ActivateAbility();
             }
         }
         

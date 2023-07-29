@@ -16252,10 +16252,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4555658408414418186}
+  - component: {fileID: 7628493325160325906}
   - component: {fileID: 4652610775743347805}
   - component: {fileID: 1402822749419522299}
   - component: {fileID: 2689864233527865975}
-  - component: {fileID: 7628493325160325906}
   - component: {fileID: 9214087281770529158}
   m_Layer: 6
   m_Name: EnemyEntity
@@ -16281,6 +16281,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7628493325160325906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490351112481082744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1afa89bd8b31a5146a68b6de1657820e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowMultipleSlaps: 0
+  effectsPlayer: {fileID: 2895137673304360023}
+  despawnOffset: 10
 --- !u!33 &4652610775743347805
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16352,21 +16367,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7628493325160325906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8490351112481082744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afa89bd8b31a5146a68b6de1657820e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowMultipleSlaps: 0
-  effectsPlayer: {fileID: 2895137673304360023}
-  despawnOffset: 10
 --- !u!114 &9214087281770529158
 MonoBehaviour:
   m_ObjectHideFlags: 0
