@@ -16,7 +16,7 @@ namespace ProjectExodia
 
         private void Start()
         {
-            CreatePanel(mainMenuPrefab);
+            CreatePanel(mainMenuPrefab, true);
             CreatePanel(mainHUDPrefab);
             CreatePanel(debugPanelPrefab, true);
             CreatePanel(effectsPanelPrefab, true);
