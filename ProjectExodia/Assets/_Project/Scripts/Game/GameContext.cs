@@ -14,6 +14,7 @@ namespace ProjectExodia
         [SerializeField] private AudioManager audioManagerPrefab;
         [SerializeField] private SpawnManager spawnManagerPrefab;
         [SerializeField] private TileManager tileManagerPrefab;
+        [SerializeField] private CameraManager cameraManagerPrefab;
         
         private readonly Dictionary<Type, ManagerBase> _managerDictionary = new();
     
@@ -21,6 +22,7 @@ namespace ProjectExodia
         {
             CreateManager<GameManager>();
             CreateManager<TimerManager>();
+            CreateManager(cameraManagerPrefab);
             CreateManager(playerManagerPrefab);
             CreateManager(uiManagerPrefab);
             CreateManager(audioManagerPrefab);

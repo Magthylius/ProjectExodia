@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 3}
   tileManagerPrefab: {fileID: 7738578302223303065, guid: 1520ac036caa7d14299094595f202419,
     type: 3}
+  cameraManagerPrefab: {fileID: 3788088024711024398, guid: 01f9f1f12856da84cb3e05909a933072,
+    type: 3}

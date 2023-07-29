@@ -26,7 +26,6 @@ namespace ProjectExodia
 
         [Header("References")]
         [SerializeField] private PlayerInputHandler inputHandler;
-        [SerializeField] private Camera playerCamera;
         [SerializeField] private TrailRenderer trailRendererPrefab;
 
         [Header("Settings - Player")] 
@@ -76,18 +75,24 @@ namespace ProjectExodia
             _trailRenderer = Instantiate(trailRendererPrefab, transform);
             PlayerTransform = new GameObject("PlayerPawn").transform;
             PlayerTransform.SetParent(transform);
-            playerCamera.transform.SetParent(PlayerTransform);
+            //playerCamera.transform.SetParent(PlayerTransform);
         }
 
         private void Start()
         {
-            inputHandler.SetCamera(playerCamera);
+            //inputHandler.SetCamera(playerCamera);
         }
 
         private void Update()
         {
             if (!PlayerTransform || stopMovement) return;
             PlayerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
+        }
+
+        public void Initialize(CameraManager manager)
+        {
+            manager.SetFollowTarget(PlayerTransform);
+            inputHandler.SetCamera(manager.MainCamera);
         }
 
         private void BeginTap(Vector2 position, float time)

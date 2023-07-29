@@ -1,14 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 namespace ProjectExodia
 {
     public class CameraManager : ManagerBase
     {
-        private void Start()
-        {
-        }
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
+        public void SetFollowTarget(Transform followTarget) => cinemachineFreeLook.Follow = followTarget;
+        public Camera MainCamera => mainCamera;
     }
 }

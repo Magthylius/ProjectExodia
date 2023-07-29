@@ -51,7 +51,7 @@ MonoBehaviour:
   tileLength: 10
   safeZone: 15
   maxTileSpawn: 15
-  disableSpawn: 1
+  disableSpawn: 0
 --- !u!23 &3940693341630341028
 MeshRenderer:
   m_ObjectHideFlags: 0

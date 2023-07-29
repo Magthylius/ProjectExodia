@@ -50,4 +50,4 @@ MonoBehaviour:
   spawnGap: 4
   spawnTime: 0.2
   yPositionOffset: 0.5
-  disableSpawn: 1
+  disableSpawn: 0
