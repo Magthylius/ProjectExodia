@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -30,11 +31,16 @@ namespace ProjectExodia
 
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
+        [SerializeField] private float xMovementRange = 5f;
 
         [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
         [SerializeField, Layer] private int enemyLayer = 5;
         
+        [Header("Settings - Drag")] 
+        [SerializeField] private float dragMaxDistance = 100f;
+        [SerializeField] private float dragSensitivity = 0.2f;
+
         [Header("Settings - Swipe")] 
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
@@ -48,12 +54,15 @@ namespace ProjectExodia
         public Transform PlayerTransform { get; private set; }
         
         private TrailRenderer _trailRenderer;
-        private Coroutine _trailUpdateRoutine;
+        private Coroutine _dragRoutine;
         
         private Vector2 _swipeStartPos;
         private Vector2 _swipeEndPos;
         private float _swipeStartTime;
         private float _swipeEndTime;
+
+        private Vector2 _dragStartPos;
+        private float _dragVariance;
         
         private static Vector2 UpLeft => new(-0.707106f, 0.707106f);
         private static Vector2 UpRight => new(0.707106f, 0.707106f);
@@ -63,11 +72,15 @@ namespace ProjectExodia
         private void OnEnable()
         {
             inputHandler.OnStartTouchEvent += BeginTap;
+            inputHandler.OnStartTouchEvent += BeginDrag;
+            inputHandler.OnEndTouchEvent += EndDrag;
         }
         
         private void OnDisable()
         {
             inputHandler.OnStartTouchEvent -= BeginTap;
+            inputHandler.OnStartTouchEvent -= BeginDrag;
+            inputHandler.OnEndTouchEvent -= EndDrag;
         }
         
         private void Awake()
@@ -75,18 +88,18 @@ namespace ProjectExodia
             _trailRenderer = Instantiate(trailRendererPrefab, transform);
             PlayerTransform = new GameObject("PlayerPawn").transform;
             PlayerTransform.SetParent(transform);
-            //playerCamera.transform.SetParent(PlayerTransform);
-        }
-
-        private void Start()
-        {
-            //inputHandler.SetCamera(playerCamera);
         }
 
         private void Update()
         {
             if (!PlayerTransform || stopMovement) return;
-            PlayerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
+            
+            var movement = new Vector3(_dragVariance * dragSensitivity, 0f, 1f) * (playerSpeed * Time.deltaTime);
+            var newPosition = PlayerTransform.position += movement;
+            newPosition.x = Mathf.Clamp(newPosition.x, -xMovementRange, xMovementRange);
+            
+            // ReSharper disable once Unity.InefficientPropertyAccess
+            PlayerTransform.position = newPosition;
         }
 
         public void Initialize(CameraManager manager)
@@ -113,33 +126,39 @@ namespace ProjectExodia
         }
 
         #region Swipe Functions
-        private void BeginSwipe(Vector2 position, float time)
+        private void BeginDrag(Vector2 position, float time)
         {
             _swipeStartPos = position;
             _swipeStartTime = time;
+            
             _trailRenderer.gameObject.SetActive(true);
             _trailRenderer.transform.position = position;
             _trailRenderer.Clear();
-            _trailUpdateRoutine = StartCoroutine(TrailUpdate());
             
-            IEnumerator TrailUpdate()
+            _dragRoutine = StartCoroutine(DragUpdate());
+            _dragStartPos = inputHandler.PrimaryScreenPosition;
+            
+            IEnumerator DragUpdate()
             {
                 while (true)
                 {
-                    _trailRenderer.transform.position = inputHandler.PrimaryPosition;
+                    var distance = inputHandler.PrimaryScreenPosition.x - _dragStartPos.x;
+                    _dragVariance = Mathf.Clamp(distance / dragMaxDistance, -1f, 1f);
+
+                    _trailRenderer.transform.position = inputHandler.PrimaryWorldPosition;
                     yield return null;
                 }
             }
         }
         
-        private void EndSwipe(Vector2 position, float time)
+        private void EndDrag(Vector2 position, float time)
         {
             _swipeEndPos = position;
             _swipeEndTime = time;
+
+            _dragVariance = 0f;
             _trailRenderer.gameObject.SetActive(false);
-            if (_trailUpdateRoutine != null) StopCoroutine(_trailUpdateRoutine);
-            
-            DetectSwipe();
+            if (_dragRoutine != null) StopCoroutine(_dragRoutine);
         }
 
         private void DetectSwipe()
