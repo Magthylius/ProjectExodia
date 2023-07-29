@@ -50,7 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8aeeda8e1bb24bb8282320bd837de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttBananaAnimator: {fileID: 2240793533958538068}
   bananaSlapDuration: 10
+  oneBananaAnimClip: {fileID: 0}
+  twoBananasAnimClip: {fileID: 0}
+  threeBananasAnimClip: {fileID: 0}
 --- !u!95 &919121010283495300
 Animator:
   serializedVersion: 7

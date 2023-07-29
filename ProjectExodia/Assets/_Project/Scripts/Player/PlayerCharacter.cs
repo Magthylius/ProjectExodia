@@ -9,6 +9,8 @@ namespace ProjectExodia
     {
         public delegate void CharacterEvent();
         public event CharacterEvent OnBananaPickup;
+
+        [SerializeField] private Animator buttBananaAnimator;
         
         [SerializeField] private float bananaSlapDuration = 10f;
 
@@ -84,6 +86,11 @@ namespace ProjectExodia
             }
             
             _entitiesInRange.Clear();
+        }
+
+        public void OnBananaCountChanged(int bananaCount)
+        {
+            buttBananaAnimator.SetInteger("BananaCount", bananaCount);
         }
         
         public void TakeHordeDamage()
