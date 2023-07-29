@@ -11,6 +11,7 @@ namespace ProjectExodia
         [SerializeField] private float spawnGap = 4;
         [SerializeField] private float spawnTime;
         [SerializeField] private float yPositionOffset;
+        [SerializeField] private bool disableSpawn = false;
 
         private readonly List<EnemyEntity> _activeEnemies = new();
         private TileManager _tileManager;
@@ -51,6 +52,7 @@ namespace ProjectExodia
 
         private void SpawnEnemy()
         {
+            if (disableSpawn) return;
             if (enemyEntityPrefabs.Length <= 0) return;
             
             var enemy = Instantiate(enemyEntityPrefabs[RandomPrefabIndex()], transform, true);

@@ -14,6 +14,9 @@ namespace ProjectExodia
         {
             base.Initialize(gameContext);
             playerController.OnEntitySlapped += OnEntitySlapped;
+            
+            if (gameContext.TryGetManager(out CameraManager cameraManager))
+                playerController.Initialize(cameraManager);
         }
 
         private void OnEntitySlapped(ISlappableEntity entity)
