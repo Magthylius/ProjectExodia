@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 4530889275936555183}
   slapAudioData: {fileID: 11400000, guid: 8f1ce03728d91684e8a66fbaf77cfa38, type: 2}
+  goldenBananaCost: 3
 --- !u!1 &6249811329797091136
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,14 +96,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 4014248103848449666}
+  playerCharacterPrefab: {fileID: 452669743430902573, guid: 663718e36cbb4454dbc76a0c3fa2f052,
+    type: 3}
   trailRendererPrefab: {fileID: 8002561042973826676, guid: 35f307eaa43957e40a7a86ad4f84752c,
     type: 3}
   playerSpeed: 50
   xMovementRange: 5
+  spawnOffset: {x: 0, y: 1.1, z: 0}
   tapDistance: 100
   enemyLayer: 6
-  dragMaxDistance: 100
-  dragSensitivity: 0.2
+  dragMaxDistance: 200
+  dragSensitivity: 0.1
   minimumDistance: 0.05
   maximumTime: 1
   directionThreshold: 0.9

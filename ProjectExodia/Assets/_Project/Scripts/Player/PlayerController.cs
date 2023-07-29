@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -27,11 +26,13 @@ namespace ProjectExodia
 
         [Header("References")]
         [SerializeField] private PlayerInputHandler inputHandler;
+        [SerializeField] private PlayerCharacter playerCharacterPrefab;
         [SerializeField] private TrailRenderer trailRendererPrefab;
 
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
         [SerializeField] private float xMovementRange = 5f;
+        [SerializeField] private Vector3 spawnOffset;
 
         [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
@@ -51,8 +52,8 @@ namespace ProjectExodia
         [SerializeField] private bool wantsDebug = false;
         [SerializeField] private bool stopMovement = false;
 
-        public Transform PlayerTransform { get; private set; }
-        
+        public PlayerCharacter Character { get; private set; }
+
         private TrailRenderer _trailRenderer;
         private Coroutine _dragRoutine;
         
@@ -86,25 +87,24 @@ namespace ProjectExodia
         private void Awake()
         {
             _trailRenderer = Instantiate(trailRendererPrefab, transform);
-            PlayerTransform = new GameObject("PlayerPawn").transform;
-            PlayerTransform.SetParent(transform);
+            Character = Instantiate(playerCharacterPrefab, spawnOffset, Quaternion.identity);
         }
 
         private void Update()
         {
-            if (!PlayerTransform || stopMovement) return;
+            if (!Character || stopMovement) return;
             
             var movement = new Vector3(_dragVariance * dragSensitivity, 0f, 1f) * (playerSpeed * Time.deltaTime);
-            var newPosition = PlayerTransform.position += movement;
+            var newPosition = Character.transform.position += movement;
             newPosition.x = Mathf.Clamp(newPosition.x, -xMovementRange, xMovementRange);
             
             // ReSharper disable once Unity.InefficientPropertyAccess
-            PlayerTransform.position = newPosition;
+            Character.transform.position = newPosition;
         }
 
         public void Initialize(CameraManager manager)
         {
-            manager.SetFollowTarget(PlayerTransform);
+            manager.SetFollowTarget(Character.transform);
             inputHandler.SetCamera(manager.MainCamera);
         }
 

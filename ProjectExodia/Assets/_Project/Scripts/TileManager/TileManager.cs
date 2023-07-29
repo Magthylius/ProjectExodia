@@ -43,7 +43,7 @@ namespace ProjectExodia
         {
             base.Initialize(gameContext);
             if (gameContext.TryGetManager<PlayerManager>(out var playerManager))
-                _playerTransform = playerManager.Controller.PlayerTransform;
+                _playerTransform = playerManager.Controller.Character.transform;
         }
 
         private void SpawnTile(int tilePrefabIndex = -1)

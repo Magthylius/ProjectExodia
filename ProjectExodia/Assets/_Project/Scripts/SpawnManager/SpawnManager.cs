@@ -7,7 +7,8 @@ namespace ProjectExodia
 {
     public class SpawnManager : ManagerBase
     {
-        [FormerlySerializedAs("enemyEntityPrefabs")] [SerializeField] private EntityBase[] entityPrefabs;
+        [FormerlySerializedAs("enemyEntityPrefabs")] 
+        [SerializeField] private EntityBase[] entityPrefabs;
         [SerializeField] private float spawnDistance = 70;
         [SerializeField] private float spawnGap = 4;
         [SerializeField] private float spawnTime;
@@ -57,7 +58,7 @@ namespace ProjectExodia
             if (entityPrefabs.Length <= 0) return;
             
             var enemy = Instantiate(entityPrefabs[RandomPrefabIndex()], transform, true);
-            enemy.Initialize(_playerManager.Controller.PlayerTransform);
+            enemy.Initialize(_playerManager.Controller.Character.transform);
             var randomGap = Random.Range(-spawnGap, spawnGap);
             
             enemy.transform.position = new Vector3(randomGap, _ySpawnPosition, _tileManager.GetLastSpawnLocation().z);

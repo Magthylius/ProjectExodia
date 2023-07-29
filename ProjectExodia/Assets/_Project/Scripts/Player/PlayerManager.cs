@@ -29,7 +29,7 @@ namespace ProjectExodia
                 audioManager.PlaySfx(slapAudioData, "Slap");
             }
             
-            if (entity is BananaEntity)
+            if (entity is BananaEntity && _goldenBananas < goldenBananaCost)
             {
                 _goldenBananas++;
                 Debug.Log(_goldenBananas);
