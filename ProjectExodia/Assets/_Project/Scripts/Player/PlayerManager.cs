@@ -37,6 +37,11 @@ namespace ProjectExodia
             {
                 GainBanana();
             }
+            else if (entity is EnemyEntity)
+            {
+                ScoreData.AddScore(ScoreData.ENEMY_BASE_SCORE);
+                ScoreData.IncreaseMultiplier(ScoreData.MULTIPLIER_BASE_INCREMENT);
+            }
         }
 
         private void OnPlayerTriggered(PlayerCharacter playerCharacter)
