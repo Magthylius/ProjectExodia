@@ -33,7 +33,7 @@ namespace ProjectExodia
                 audioManager.PlaySfx(slapAudioData, "Slap");
             }
             
-            if (entity is BananaEntity)
+            if (entity is BananaEntity && !Controller.Character.IsInBananaSlapMode)
             {
                 GainBanana();
             }
@@ -57,7 +57,7 @@ namespace ProjectExodia
         
         private void ActivateAbility()
         {
-            Debug.Log("Ability activated");
+            Controller.Character.IsInBananaSlapMode = true;
         }
 
         public PlayerController Controller => playerController;

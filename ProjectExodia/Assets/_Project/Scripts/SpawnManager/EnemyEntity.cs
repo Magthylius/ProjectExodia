@@ -35,7 +35,7 @@ namespace ProjectExodia
 
         public override void PerformCollision()
         {
-            if (_playerCharacter) _playerCharacter.TakeHordeDamage();
+            //if (_playerCharacter) _playerCharacter.TakeHordeDamage();
             Destroy(gameObject);
         }
     }

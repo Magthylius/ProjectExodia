@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using ProjectExodia;
 using UnityEngine;
 
 namespace ProjectExodia
@@ -22,6 +19,7 @@ namespace ProjectExodia
         {
             if (!allowMultipleSlaps && WasSlapped) return false;
             WasSlapped = true;
+            Destroy(gameObject);
             return true;
         }
 
