@@ -49,5 +49,8 @@ namespace ProjectExodia
 
         public Vector2 PrimaryPosition =>
             GeneralUtils.ScreenToWorld(_mainCamera, _playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
+        
+        public Ray PrimaryRay => 
+            GeneralUtils.ScreenToRay(_mainCamera, _playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
 }

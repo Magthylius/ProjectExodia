@@ -31,6 +31,9 @@ namespace ProjectExodia
 
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
+
+        [Header("Settings - Player")] 
+        [SerializeField] private float tapDistance = 100;
         
         [Header("Settings - Swipe")] 
         [SerializeField] private float minimumDistance = .2f;
@@ -56,13 +59,12 @@ namespace ProjectExodia
 
         private void OnEnable()
         {
-            inputHandler.OnStartTouchEvent += BeginSwipe;
-            inputHandler.OnEndTouchEvent += EndSwipe;
+            inputHandler.OnStartTouchEvent += BeginTap;
         }
+        
         private void OnDisable()
         {
-            inputHandler.OnStartTouchEvent -= BeginSwipe;
-            inputHandler.OnEndTouchEvent -= EndSwipe;
+            inputHandler.OnStartTouchEvent -= BeginTap;
         }
         
         private void Awake()
@@ -84,6 +86,17 @@ namespace ProjectExodia
             PlayerTransform.Translate(Vector3.forward * (playerSpeed * Time.deltaTime), Space.World);
         }
 
+        private void BeginTap(Vector2 position, float time)
+        {
+            var mouseRay = inputHandler.PrimaryRay;
+            if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
+            if (wantsDebug)
+            {
+                Debug.Log($"I hit {hitInfo.transform}");
+            }
+        }
+
+        #region Swipe Functions
         private void BeginSwipe(Vector2 position, float time)
         {
             _swipeStartPos = position;
@@ -148,5 +161,6 @@ namespace ProjectExodia
             else if (ExceedsDotThreshold(Vector2.left)) OnPlayerSwiped?.Invoke(SwipeDirection.Left);
             else if (ExceedsDotThreshold(UpLeft)) OnPlayerSwiped?.Invoke(SwipeDirection.UpLeft);
         }
+        #endregion
     }
 }
