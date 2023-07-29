@@ -64,6 +64,8 @@ namespace ProjectExodia
                 _goldenBananas = 0;
                 ActivateAbility();
             }
+            
+            Controller.Character.OnBananaCountChanged(_goldenBananas);
         }
         
         private void ActivateAbility()
