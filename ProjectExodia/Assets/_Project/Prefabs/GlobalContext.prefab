@@ -57,3 +57,5 @@ MonoBehaviour:
     type: 3}
   cameraManagerPrefab: {fileID: 3788088024711024398, guid: 01f9f1f12856da84cb3e05909a933072,
     type: 3}
+  stampedeManagerPrefab: {fileID: 1278363072724851348, guid: fda44ddd7a0470445b015c5263f7f30c,
+    type: 3}
