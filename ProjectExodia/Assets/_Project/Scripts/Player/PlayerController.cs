@@ -88,12 +88,6 @@ namespace ProjectExodia
             inputHandler.OnEndTouchEvent -= EndDrag;
         }
         
-        private void Awake()
-        {
-            _trailRenderer = Instantiate(trailRendererPrefab, transform);
-            Character = Instantiate(playerCharacterPrefab, spawnOffset, Quaternion.identity);
-        }
-
         private void Update()
         {
             if (!Character || stopMovement) return;
@@ -108,6 +102,9 @@ namespace ProjectExodia
 
         public void Initialize(CameraManager manager)
         {
+            _trailRenderer = Instantiate(trailRendererPrefab, transform);
+            Character = Instantiate(playerCharacterPrefab, spawnOffset, Quaternion.identity);
+            Character.Initialize(this);
             manager.SetFollowTarget(Character.transform);
             inputHandler.SetCamera(manager.MainCamera);
         }
@@ -138,6 +135,8 @@ namespace ProjectExodia
                 OnPlayerTriggered?.Invoke(player);
             }
         }
+
+        public void SlapEntity(ISlappableEntity entity) => OnEntitySlapped?.Invoke(entity);
 
         #region Swipe Functions
         private void BeginDrag(Vector2 position, float time)

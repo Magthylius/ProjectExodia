@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7284029531055832113}
   - component: {fileID: 3434432455052963547}
   - component: {fileID: 4928813171960137136}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshBaseTile_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3675176760440850362}
   - component: {fileID: 5844514960826593594}
   - component: {fileID: 4047312826776318476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshBaseTile_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8146975215221007895}
   - component: {fileID: 1519740277460342206}
   - component: {fileID: 2686359677232595639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshBaseTile_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5515053761132378228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BaseTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 8931229175815201584}
   - component: {fileID: 8244460394674615578}
   - component: {fileID: 4967516769043248377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshBaseTile_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 6781749334690069760}
   - component: {fileID: 6511242696991586714}
   - component: {fileID: 217791792133783228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MeshBaseTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -18,9 +18,12 @@ namespace ProjectExodia
             base.Initialize(gameContext);
             playerController.OnEntitySlapped += OnEntitySlapped;
             playerController.OnPlayerTriggered += OnPlayerTriggered;
-            
+
             if (gameContext.TryGetManager(out CameraManager cameraManager))
+            {
                 playerController.Initialize(cameraManager);
+                playerController.Character.OnBananaPickup += GainBanana;
+            }
         }
 
         private void OnEntitySlapped(ISlappableEntity entity)
@@ -30,10 +33,9 @@ namespace ProjectExodia
                 audioManager.PlaySfx(slapAudioData, "Slap");
             }
             
-            if (entity is BananaEntity && _goldenBananas < goldenBananaCost)
+            if (entity is BananaEntity && !Controller.Character.IsInBananaSlapMode)
             {
-                _goldenBananas++;
-                Debug.Log(_goldenBananas);
+                GainBanana();
             }
         }
 
@@ -44,9 +46,18 @@ namespace ProjectExodia
             ActivateAbility();
         }
 
+        private void GainBanana()
+        {
+            if (_goldenBananas < goldenBananaCost)
+            {
+                _goldenBananas++;
+                Debug.Log(_goldenBananas);
+            }
+        }
+        
         private void ActivateAbility()
         {
-            Debug.Log("Ability activated");
+            Controller.Character.IsInBananaSlapMode = true;
         }
 
         public PlayerController Controller => playerController;

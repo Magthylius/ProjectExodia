@@ -86,7 +86,7 @@ namespace ProjectExodia
             if (entityPrefabs.Length <= 0) return;
             
             var enemy = Instantiate(entityPrefabs[RandomPrefabIndex(entityPrefabs)], transform, true);
-            enemy.Initialize(_playerManager.Controller.Character.transform);
+            enemy.Initialize(GameContext);
             
             var spawnIndex = spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].spawnIndex;
             var segment = (_meshBoundSize - marginBoundSize) / 10;
