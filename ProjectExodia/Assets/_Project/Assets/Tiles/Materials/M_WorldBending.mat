@@ -109,7 +109,7 @@ Material:
     - _Cull: 2
     - _CurveValue: 0.01
     - _CurveX: 0.2
-    - _CurveY: -6.4
+    - _CurveY: -1.7
     - _CurveZ: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -139,7 +139,7 @@ Material:
     m_Colors:
     - _AlbedoColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.64705884, g: 0.7960785, b: 0.8470589, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

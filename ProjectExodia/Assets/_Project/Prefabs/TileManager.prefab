@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa92154900abc884e8132d09ad7ac28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 3620862042524265326, guid: 6d3c25a1a211d3044b6d97d4ff72ba38, type: 3}
+  tilePrefab: {fileID: 3620862042524265326, guid: 6d3c25a1a211d3044b6d97d4ff72ba38,
+    type: 3}
   tileLength: 50
   safeZone: 75
   maxTileSpawn: 5
