@@ -7,7 +7,8 @@ namespace ProjectExodia
     {
         [SerializeField] private MMF_Player effectsPlayer;
         [SerializeField] private float despawnOffset = 10.0f;
-
+        [SerializeField] private bool allowMultipleSlaps = false;
+        
         private Transform _playerTransform;
         private bool _wasSlapped;
         
@@ -26,7 +27,7 @@ namespace ProjectExodia
 
         public bool PerformSlap()
         {
-            if (_wasSlapped) return false;
+            if (!allowMultipleSlaps && _wasSlapped) return false;
             
             _wasSlapped = true;
             effectsPlayer.PlayFeedbacks();

@@ -11,6 +11,7 @@ namespace ProjectExodia
         [SerializeField] private float tileLength = 10.0f;
         [SerializeField] private float safeZone = 15.0f;
         [SerializeField] private int maxTileSpawn = 10;
+        [SerializeField] private bool disableSpawn = false;
 
         private Transform _playerTransform;
         private List<GameObject> _activeTiles;
@@ -30,7 +31,7 @@ namespace ProjectExodia
         
         private void Update()
         {
-            if (!_playerTransform) return;
+            if (disableSpawn || !_playerTransform) return;
             if (_playerTransform.position.z - safeZone > _lastSpawn - maxTileSpawn * tileLength)
             {
                 SpawnTile();
