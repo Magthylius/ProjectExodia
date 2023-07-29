@@ -37,17 +37,18 @@ namespace ProjectExodia
         
         private void OnStartPrimaryTouch(InputAction.CallbackContext context)
         {
-            OnStartTouchEvent?.Invoke(PrimaryPosition, (float)context.startTime);
+            OnStartTouchEvent?.Invoke(PrimaryWorldPosition, (float)context.startTime);
         }
         
         private void OnEndPrimaryTouch(InputAction.CallbackContext context)
         {
-            OnEndTouchEvent?.Invoke(PrimaryPosition, (float)context.time);
+            OnEndTouchEvent?.Invoke(PrimaryWorldPosition, (float)context.time);
         }
         
         public void SetCamera(Camera playerCamera) => _mainCamera = playerCamera;
 
-        public Vector2 PrimaryPosition =>
+        public Vector2 PrimaryScreenPosition => _playerControls.Touch.PrimaryPosition.ReadValue<Vector2>();
+        public Vector2 PrimaryWorldPosition =>
             GeneralUtils.ScreenToWorld(_mainCamera, _playerControls.Touch.PrimaryPosition.ReadValue<Vector2>());
         
         public Ray PrimaryRay => 
