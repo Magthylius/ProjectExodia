@@ -25,6 +25,8 @@ namespace ProjectExodia
             return true;
         }
 
+        public abstract void PerformCollision();
+
         public virtual bool GetWasSlapped() => WasSlapped;
         public virtual string GetName() => gameObject.name;
     }

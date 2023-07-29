@@ -8,10 +8,11 @@ namespace ProjectExodia
         [SerializeField] private MMF_Player effectsPlayer;
         [SerializeField] private float despawnOffset = 10.0f;
 
-        private Transform _playerTransform;
+        private PlayerCharacter _playerCharacter;
+
         private void Update()
         {
-            if (_playerTransform && _playerTransform.position.z - despawnOffset > transform.position.z)
+            if (_playerCharacter && _playerCharacter.transform.position.z - despawnOffset > transform.position.z)
             {
                 Destroy(gameObject);
             }
@@ -21,7 +22,7 @@ namespace ProjectExodia
         {
             base.Initialize(gameContext);
             if (gameContext.TryGetManager(out PlayerManager manager))
-                _playerTransform = manager.Controller.Character.transform;
+                _playerCharacter = manager.Controller.Character;
         }
 
         public override bool PerformSlap()
@@ -30,6 +31,12 @@ namespace ProjectExodia
 
             effectsPlayer.PlayFeedbacks();
             return true;
+        }
+
+        public override void PerformCollision()
+        {
+            if (_playerCharacter) _playerCharacter.TakeHordeDamage();
+            Destroy(gameObject);
         }
     }
 }

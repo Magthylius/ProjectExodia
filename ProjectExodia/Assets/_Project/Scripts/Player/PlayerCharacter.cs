@@ -5,7 +5,7 @@ namespace ProjectExodia
     public class PlayerCharacter : MonoBehaviour
     {
         public delegate void CharacterEvent();
-        public CharacterEvent OnBananaPickup;
+        public event CharacterEvent OnBananaPickup;
         
         private void OnCollisionEnter(Collision other)
         {
@@ -15,10 +15,18 @@ namespace ProjectExodia
         private void OnTriggerEnter(Collider other)
         {
             var entity = other.transform.GetComponent<EntityBase>();
+            if (!entity) return;
+            entity.PerformCollision();
+            
             if (entity is BananaEntity)
             {
                 OnBananaPickup?.Invoke();
             }
+        }
+
+        public void TakeHordeDamage()
+        {
+            
         }
     }
 }
