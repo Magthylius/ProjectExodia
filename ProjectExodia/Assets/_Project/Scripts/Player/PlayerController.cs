@@ -31,15 +31,16 @@ namespace ProjectExodia
 
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
+        [SerializeField] private float xMovementRange = 5f;
 
         [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
         [SerializeField, Layer] private int enemyLayer = 5;
-
+        
         [Header("Settings - Drag")] 
         [SerializeField] private float dragMaxDistance = 100f;
         [SerializeField] private float dragSensitivity = 0.2f;
-        
+
         [Header("Settings - Swipe")] 
         [SerializeField] private float minimumDistance = .2f;
         [SerializeField] private float maximumTime = 1f;
@@ -92,8 +93,13 @@ namespace ProjectExodia
         private void Update()
         {
             if (!PlayerTransform || stopMovement) return;
+            
             var movement = new Vector3(_dragVariance * dragSensitivity, 0f, 1f) * (playerSpeed * Time.deltaTime);
-            PlayerTransform.Translate(movement, Space.World);
+            var newPosition = PlayerTransform.position += movement;
+            newPosition.x = Mathf.Clamp(newPosition.x, -xMovementRange, xMovementRange);
+            
+            // ReSharper disable once Unity.InefficientPropertyAccess
+            PlayerTransform.position = newPosition;
         }
 
         public void Initialize(CameraManager manager)
