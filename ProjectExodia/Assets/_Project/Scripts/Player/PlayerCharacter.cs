@@ -25,8 +25,12 @@ namespace ProjectExodia
             get => _isInBananaSlapMode;
             set
             {
-                Debug.Log($"Banana slap mode: {value}");
                 _isInBananaSlapMode = value;
+                if (GameContext.Instance.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().SetGoBananaFire(value);
+                    Debug.Log($"Banana slap mode: {value}");
+                }
 
                 if (!value) return;
 
@@ -34,6 +38,7 @@ namespace ProjectExodia
                 {
                     yield return new WaitForSeconds(bananaSlapDuration);
                     IsInBananaSlapMode = false;
+                    uiManager.GetPanel<EffectsPanel>().SetGoBananaFire(false);
                 }
                     
                 if (_bananaSlapRoutine != null) StopCoroutine(_bananaSlapRoutine);

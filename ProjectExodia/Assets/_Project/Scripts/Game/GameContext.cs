@@ -6,6 +6,8 @@ namespace ProjectExodia
 {
     public class GameContext : MonoBehaviour
     {
+        public static GameContext Instance;
+        
         [SerializeField] private GameInitData gameInitData;
         
         [Header("Prefabs")]
@@ -21,6 +23,8 @@ namespace ProjectExodia
     
         private void Awake()
         {
+            Instance = this;
+            
             CreateManager<GameManager>();
             CreateManager<TimerManager>();
             CreateManager(cameraManagerPrefab);
