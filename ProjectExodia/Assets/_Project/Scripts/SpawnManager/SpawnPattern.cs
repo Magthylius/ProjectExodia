@@ -15,7 +15,7 @@ namespace ProjectExodia
         public int spawnIndex;
     }
 
-    [CreateAssetMenu(fileName = "SpawnPattern", menuName = "ScriptableObjects/SpawnManagerScriptableObject")]
+    [CreateAssetMenu(fileName = "SpawnPattern", menuName = "Menu/SpawnPattern")]
     public class SpawnPattern : ScriptableObject
     {
         
