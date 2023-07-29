@@ -88,12 +88,6 @@ namespace ProjectExodia
             inputHandler.OnEndTouchEvent -= EndDrag;
         }
         
-        private void Awake()
-        {
-            _trailRenderer = Instantiate(trailRendererPrefab, transform);
-            Character = Instantiate(playerCharacterPrefab, spawnOffset, Quaternion.identity);
-        }
-
         private void Update()
         {
             if (!Character || stopMovement) return;
@@ -108,6 +102,8 @@ namespace ProjectExodia
 
         public void Initialize(CameraManager manager)
         {
+            _trailRenderer = Instantiate(trailRendererPrefab, transform);
+            Character = Instantiate(playerCharacterPrefab, spawnOffset, Quaternion.identity);
             manager.SetFollowTarget(Character.transform);
             inputHandler.SetCamera(manager.MainCamera);
         }

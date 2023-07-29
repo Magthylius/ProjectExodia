@@ -16341,12 +16341,12 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -16364,9 +16364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1afa89bd8b31a5146a68b6de1657820e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowMultipleSlaps: 0
   effectsPlayer: {fileID: 2895137673304360023}
   despawnOffset: 10
-  allowMultipleSlaps: 0
 --- !u!114 &9214087281770529158
 MonoBehaviour:
   m_ObjectHideFlags: 0

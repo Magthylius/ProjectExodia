@@ -10,12 +10,12 @@ namespace ProjectExodia
         [Header("Entity Base")]
         [SerializeField] private bool allowMultipleSlaps = false;
 
-        protected Transform PlayerTransform;
+        protected GameContext GameContext;
         protected bool WasSlapped;
 
-        public virtual void Initialize(Transform playerTransform)
+        public virtual void Initialize(GameContext gameContext)
         {
-            PlayerTransform = playerTransform;
+            GameContext = gameContext;
         }
         
         public virtual bool PerformSlap()
