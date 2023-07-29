@@ -11,7 +11,6 @@ namespace ProjectExodia
         [SerializeField] private EntityBase[] entityPrefabs;
         [SerializeField] private SpawnPattern[] spawnPatterns;
         [SerializeField] private float spawnDistanceBetweenEnemy = 70;
-        [SerializeField] private float spawnYAxisGap = 4;
         [SerializeField] private float initialSpawnDistance;
         [SerializeField] private float yPositionOffset;
         [SerializeField] private float randomOffsetSpawn = 0.0f;
