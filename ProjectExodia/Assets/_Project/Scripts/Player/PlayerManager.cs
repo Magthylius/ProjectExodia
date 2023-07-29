@@ -9,6 +9,9 @@ namespace ProjectExodia
         
         [Header("Settings")]
         [SerializeField] private AudioData slapAudioData;
+        [SerializeField] private int goldenBananaCost = 3;
+
+        private int _goldenBananas = 0;
         
         public override void Initialize(GameContext gameContext)
         {
@@ -25,6 +28,24 @@ namespace ProjectExodia
             {
                 audioManager.PlaySfx(slapAudioData, "Slap");
             }
+            
+            if (entity is BananaEntity)
+            {
+                _goldenBananas++;
+                Debug.Log(_goldenBananas);
+            }
+        }
+
+        private void ActivateAbility()
+        {
+            
+        }
+        
+        public void UseGoldenBananas()
+        {
+            if (_goldenBananas < goldenBananaCost) return;
+            _goldenBananas -= goldenBananaCost;
+            ActivateAbility();
         }
 
         public PlayerController Controller => playerController;

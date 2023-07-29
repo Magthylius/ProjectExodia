@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace ProjectExodia
 {
     public class SpawnManager : ManagerBase
     {
-        [SerializeField] private EnemyEntity[] enemyEntityPrefabs;
+        [FormerlySerializedAs("enemyEntityPrefabs")] [SerializeField] private EntityBase[] entityPrefabs;
         [SerializeField] private float spawnDistance = 70;
         [SerializeField] private float spawnGap = 4;
         [SerializeField] private float spawnTime;
         [SerializeField] private float yPositionOffset;
         [SerializeField] private bool disableSpawn = false;
 
-        private readonly List<EnemyEntity> _activeEnemies = new();
+        private readonly List<EntityBase> _activeEntities = new();
         private TileManager _tileManager;
         private PlayerManager _playerManager;
 
@@ -53,48 +54,35 @@ namespace ProjectExodia
         private void SpawnEnemy()
         {
             if (disableSpawn) return;
-            if (enemyEntityPrefabs.Length <= 0) return;
+            if (entityPrefabs.Length <= 0) return;
             
-            var enemy = Instantiate(enemyEntityPrefabs[RandomPrefabIndex()], transform, true);
+            var enemy = Instantiate(entityPrefabs[RandomPrefabIndex()], transform, true);
             enemy.Initialize(_playerManager.Controller.PlayerTransform);
             var randomGap = Random.Range(-spawnGap, spawnGap);
             
             enemy.transform.position = new Vector3(randomGap, _ySpawnPosition, _tileManager.GetLastSpawnLocation().z);
-            _activeEnemies.Add(enemy);
+            _activeEntities.Add(enemy);
         }
 
-        private void DeleteEnemy(EnemyEntity enemy)
+        private void DeleteEnemy(EntityBase enemy)
         {
-            if (!_activeEnemies.Contains(enemy)) return;
+            if (!_activeEntities.Contains(enemy)) return;
             Destroy(enemy.gameObject, 5.0f);
             
-            _activeEnemies.Remove(enemy);
+            _activeEntities.Remove(enemy);
         }
         
         private int RandomPrefabIndex()
         {
-            if (enemyEntityPrefabs.Length <= 1) return 0;
+            if (entityPrefabs.Length <= 1) return 0;
 
             var randomIndex = _lastPrefabIndex;
             
             while (randomIndex == _lastPrefabIndex)
-                randomIndex = Random.Range(0, enemyEntityPrefabs.Length);
+                randomIndex = Random.Range(0, entityPrefabs.Length);
 
             _lastPrefabIndex = randomIndex;
             return randomIndex;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            var tileManagerTransform = _tileManager.transform;
-            var position = tileManagerTransform.position;
-            
-            var minBoundaryLocation = new Vector3((position.x + spawnGap), position.y, position.z);
-            var maxBoundaryLocation = new Vector3((position.x - spawnGap), position.y, position.z);
-            
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(minBoundaryLocation, Vector3.one);
-            Gizmos.DrawWireCube(maxBoundaryLocation, Vector3.one);
         }
     }
 }
