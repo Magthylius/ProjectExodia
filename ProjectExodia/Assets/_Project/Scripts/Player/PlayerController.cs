@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Serialization;
 
 namespace ProjectExodia
 {
@@ -36,7 +37,7 @@ namespace ProjectExodia
 
         [Header("Settings - Tap")] 
         [SerializeField] private float tapDistance = 100;
-        [SerializeField, Layer] private int enemyLayer = 5;
+        [SerializeField, Layer] private int entityLayer = 6;
         
         [Header("Settings - Drag")] 
         [SerializeField] private float dragMaxDistance = 100f;
@@ -114,7 +115,7 @@ namespace ProjectExodia
             if (wantsDebug) Debug.DrawRay(mouseRay.origin, mouseRay.direction);
 
             if (!Physics.Raycast(mouseRay, out var hitInfo, tapDistance)) return;
-            if (hitInfo.transform.gameObject.layer != enemyLayer) return;
+            if (hitInfo.transform.gameObject.layer != entityLayer) return;
             
             var entity = hitInfo.transform.GetComponent<ISlappableEntity>();
             if (entity == null) return;

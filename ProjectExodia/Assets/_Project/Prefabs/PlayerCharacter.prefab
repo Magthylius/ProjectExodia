@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 919121010283495300}
   - component: {fileID: 8938716330665682806}
   - component: {fileID: 452669743430902573}
+  - component: {fileID: 3914706794410713170}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &919121010283495300
 Animator:
@@ -120,3 +121,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8aeeda8e1bb24bb8282320bd837de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3914706794410713170
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579276781459623828}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.1400785, y: 5.12, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
