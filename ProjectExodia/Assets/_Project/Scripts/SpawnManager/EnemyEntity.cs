@@ -9,11 +9,13 @@ namespace ProjectExodia
         [SerializeField] private float despawnOffset = 10.0f;
 
         private PlayerCharacter _playerCharacter;
+        private StampedeManager _stampedeManager;
 
         private void Update()
         {
             if (_playerCharacter && _playerCharacter.transform.position.z - despawnOffset > transform.position.z)
             {
+                _stampedeManager.AddExperience();
                 Destroy(gameObject);
             }
         }
@@ -23,6 +25,9 @@ namespace ProjectExodia
             base.Initialize(gameContext);
             if (gameContext.TryGetManager(out PlayerManager manager))
                 _playerCharacter = manager.Controller.Character;
+            
+            if (gameContext.TryGetManager(out StampedeManager stampedeManager))
+                _stampedeManager = stampedeManager;
         }
 
         public override bool PerformSlap()
