@@ -18,6 +18,7 @@ namespace ProjectExodia
         [SerializeField] private float yPositionOffset;
         [SerializeField] private float randomOffsetSpawn = 0.0f;
         [SerializeField] private float marginBoundSize = 1.0f;
+        [SerializeField] private float ZOffsetSpawnPosition = 100.0f;
 
         private readonly List<EntityBase> _activeEntities = new();
         private TileManager _tileManager;
@@ -121,7 +122,7 @@ namespace ProjectExodia
             var segment = (_meshBoundSize - marginBoundSize) / 10;
             var xAxisLocation = Random.Range(-randomOffsetSpawn, randomOffsetSpawn);
             var zAxisLocation = _snapshotDistance + spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp +
-                                spawnDistanceBetweenEnemy;
+                                spawnDistanceBetweenEnemy + ZOffsetSpawnPosition;
             
             xAxisLocation += segment * spawnIndex;
             
