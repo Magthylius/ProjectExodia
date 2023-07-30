@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7c3ee4dc134b74a956e0f07e922273, type: 3}
   m_Name: SlapAudioData
   m_EditorClassIdentifier: 
-  audioList:
-  - clip: {fileID: 8300000, guid: 8327f62fdd10c7544a7fa808acc4446b, type: 3}
-    audioName: Slap
-    volume: 1
-  soundPacks: []
+  audioList: []
+  soundPacks:
+  - audioPackName: Slap
+    audioList:
+    - clip: {fileID: 8300000, guid: 5af2ab4501954a64d8ab47dac7da24d2, type: 3}
+      audioName: 
+      volume: 1
+    - clip: {fileID: 8300000, guid: 23857a5b2c2846041821ef3c3c85e601, type: 3}
+      audioName: 
+      volume: 1

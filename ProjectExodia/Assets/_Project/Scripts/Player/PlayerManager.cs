@@ -30,7 +30,7 @@ namespace ProjectExodia
         {
             if (GameContext.TryGetManager<AudioManager>(out var audioManager))
             {
-                audioManager.PlaySfx(slapAudioData, "Slap");
+                audioManager.PlayRandomSfx(slapAudioData, "Slap");
             }
             
             if (entity is BananaEntity && !Controller.Character.IsInBananaSlapMode)
