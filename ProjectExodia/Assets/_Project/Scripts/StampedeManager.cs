@@ -76,7 +76,7 @@ namespace ProjectExodia
                         void OnTransition()
                         {
                             transition.OnFullTransition -= OnTransition;
-                            //! done transition
+                            uiManager.ShowPanel<EndPanel>(false).DisplayStats();
                         }
                     }
                 }

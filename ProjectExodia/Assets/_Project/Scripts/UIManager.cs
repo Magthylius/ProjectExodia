@@ -10,8 +10,9 @@ namespace ProjectExodia
         [SerializeField] private MainHUDPanel mainHUDPrefab;
         [SerializeField] private DebugPanel debugPanelPrefab;
         [SerializeField] private EffectsPanel effectsPanelPrefab;
+        [SerializeField] private EndPanel endPanelPrefab;
         [SerializeField] private TransitionPanel transitionPanelPrefab;
-        
+
         private readonly Dictionary<Type, MenuPanel> _menuPanels = new();
         private readonly List<MenuPanel> _shownPanels = new();
 
@@ -21,6 +22,7 @@ namespace ProjectExodia
             CreatePanel(effectsPanelPrefab, true);
             CreatePanel(mainHUDPrefab);
             CreatePanel(mainMenuPrefab, true);
+            CreatePanel(endPanelPrefab);
             CreatePanel(transitionPanelPrefab);
         }
 

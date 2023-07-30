@@ -16,10 +16,18 @@ namespace ProjectExodia
         public static int CurrentScore { get; private set; }
         public static float CurrentMultiplier { get; private set; }
 
+        public static int SlapCount;
+        public static float TotalDistance;
+        public static int CountriesCount;
+
         public static void Reset()
         {
             CurrentScore = 0;
             CurrentMultiplier = 1f;
+
+            SlapCount = 0;
+            TotalDistance = 0f;
+            CountriesCount = 0;
         }
 
         public static void AddScore(int scoreToAdd)
