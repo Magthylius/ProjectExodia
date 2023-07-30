@@ -18,7 +18,9 @@ namespace ProjectExodia
         {
             if (_playerCharacter && _playerCharacter.transform.position.z - despawnOffset > transform.position.z)
             {
-                _stampedeManager.AddExperience();
+                if (!WasSlapped)
+                    _stampedeManager.AddExperience();
+                
                 Destroy(gameObject);
             }
         }
