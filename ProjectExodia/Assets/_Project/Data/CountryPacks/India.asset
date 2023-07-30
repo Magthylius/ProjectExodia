@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0d450a6b56b9f54893e6ebe7cfae355, type: 3}
-  m_Name: Malaysia
+  m_Name: India
   m_EditorClassIdentifier: 
-  floorTexture: {fileID: 2800000, guid: c8fc9f40dfcda8c49a148def856aa725, type: 3}
-  backDrop: {fileID: 21300000, guid: 0724a87f039d7694c9dacd28994b508c, type: 3}
+  floorTexture: {fileID: 0}
+  backDrop: {fileID: 0}
   enemies: []
