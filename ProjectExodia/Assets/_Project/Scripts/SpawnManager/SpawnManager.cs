@@ -15,13 +15,13 @@ namespace ProjectExodia
         [SerializeField] private float initialSpawnDistance;
         [SerializeField] private float yPositionOffset;
         [SerializeField] private float randomOffsetSpawn = 0.0f;
-        [SerializeField] private bool disableSpawn = false;
         [SerializeField] private float marginBoundSize = 1.0f;
 
         private readonly List<EntityBase> _activeEntities = new();
         private TileManager _tileManager;
         private PlayerManager _playerManager;
 
+        private bool _disableSpawn = true;
         private float _ySpawnPosition;
         private float _timerElapsed;
         private int _lastEntityIndex = 0;
@@ -104,7 +104,8 @@ namespace ProjectExodia
 
         private void SpawnEnemy()
         {
-            if (disableSpawn) return;
+            Debug.Log($"Spawning {_disableSpawn}, {entityPrefabs.Length}");
+            if (_disableSpawn) return;
             if (entityPrefabs.Length <= 0) return;
             
             var enemy = Instantiate(entityPrefabs[RandomPrefabIndex(entityPrefabs)], transform, true);
@@ -155,5 +156,7 @@ namespace ProjectExodia
             _lastPatternIndex = randomIndex;
             return randomIndex;
         }
+        
+        public void SetSpawnEntities(bool spawnEntities) => _disableSpawn = !spawnEntities;
     }
 }

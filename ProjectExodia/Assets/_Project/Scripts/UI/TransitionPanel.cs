@@ -15,6 +15,11 @@ namespace ProjectExodia
             IEnumerator AutoHide()
             {
                 yield return new WaitForSeconds(4.5f);
+                if (GameContext.Instance.TryGetManager(out GameManager gameManager))
+                {
+                    gameManager.StartGameplay();
+                }
+                
                 UIManager.GetPanel<EffectsPanel>().SetPassportStamping(true);
                 UIManager.HidePanel<TransitionPanel>();
             }
