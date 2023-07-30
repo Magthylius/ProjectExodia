@@ -110,6 +110,8 @@ namespace ProjectExodia
             inputHandler.SetCamera(manager.MainCamera);
         }
 
+        public void TeleportCharacter(Vector3 position) => Character.transform.position = position + spawnOffset;
+
         private void BeginTap(Vector2 position, float time)
         {
             var mouseRay = inputHandler.PrimaryRay;

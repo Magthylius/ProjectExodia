@@ -103,9 +103,6 @@ namespace ProjectExodia
             ScoreData.IncreaseMultiplier(-ScoreData.MULTIPLIER_BASE_INCREMENT);
         }
 
-        public void Teleport(Vector3 position) => transform.position = position;
-
-
         public Vector3 Position => transform.position;
     }
 }

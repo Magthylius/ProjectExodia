@@ -44,7 +44,7 @@ namespace ProjectExodia
             if (_playerCharacter.Position.z >= maxDistance)
             {
                 ChangeCountry(true);
-                _playerCharacter.Teleport(Vector3.zero);
+                _playerCharacter.Controller.TeleportCharacter(Vector3.zero);
             }
         }
 
