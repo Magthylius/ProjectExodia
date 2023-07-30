@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5356142695707709785
+--- !u!1 &5772419171394458835
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6294200668357111071}
-  - component: {fileID: 3152690039153975394}
+  - component: {fileID: 4882356183167682617}
+  - component: {fileID: 8067778435105237829}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6294200668357111071
+--- !u!4 &4882356183167682617
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5356142695707709785}
+  m_GameObject: {fileID: 5772419171394458835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3152690039153975394
+--- !u!114 &8067778435105237829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5356142695707709785}
+  m_GameObject: {fileID: 5772419171394458835}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 618f1de0496e22441af55e0565e44128, type: 3}
@@ -47,18 +47,24 @@ MonoBehaviour:
   entityPrefabs:
   - {fileID: 7628493325160325906, guid: 3d863c515877be345b880f312f9b3d86, type: 3}
   - {fileID: 1042406777674328891, guid: 4797b0cc191bf1d4ba40a5ddc37f3042, type: 3}
-  spawnDistance: 70
-  spawnGap: 4
-  spawnTime: 0.2
   spawnPatterns:
-  - {fileID: 11400000, guid: 64b613efb85315b448b307aade2a42ec, type: 2}
-  - {fileID: 11400000, guid: af574f2f666fafd4389639b8c13b6a28, type: 2}
-  - {fileID: 11400000, guid: 58eee6973e762d74ca83676bd1e14e3e, type: 2}
+  - {fileID: 11400000, guid: cc6ad1801cf53144c8003d77d1b795a3, type: 2}
+  - {fileID: 11400000, guid: a024ae4e561c889429220159c0420ced, type: 2}
+  - {fileID: 11400000, guid: 6ed48c77bf9ed2b42adbe638ff856eb3, type: 2}
+  - {fileID: 11400000, guid: a8ebb10d5bc21c7488b6e7b3798324bd, type: 2}
+  - {fileID: 11400000, guid: a31fdae63afa22046a103ae107bcb57c, type: 2}
+  - {fileID: 11400000, guid: 3d12c94e5ca773a409df899000365a6d, type: 2}
+  - {fileID: 11400000, guid: 2d506339e2edf0940b07bbf36880876a, type: 2}
+  - {fileID: 11400000, guid: 9b0bdf6006e50bd4baa6a165a7576254, type: 2}
+  - {fileID: 11400000, guid: 977ab51029e6bba40ae2868219129ee4, type: 2}
+  - {fileID: 11400000, guid: db6c1530c505ace4ab76bc88c5a36232, type: 2}
+  - {fileID: 11400000, guid: 958bb7ebda116194ab34a9ef8b8f6c2d, type: 2}
+  - {fileID: 11400000, guid: bf5c72c0f4204244db2a7575c0f68c89, type: 2}
+  - {fileID: 11400000, guid: cc6ad1801cf53144c8003d77d1b795a3, type: 2}
+  - {fileID: 11400000, guid: 6254fb9b23cfb444c96194263a2e4ea9, type: 2}
   spawnDistanceBetweenEnemy: 70
-  spawnYAxisGap: 4
   initialSpawnDistance: 0
   yPositionOffset: 0.5
   randomOffsetSpawn: 0.5
   disableSpawn: 0
-  meshBoundSize: 0
   marginBoundSize: 2.5

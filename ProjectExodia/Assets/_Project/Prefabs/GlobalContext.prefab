@@ -51,7 +51,7 @@ MonoBehaviour:
     type: 3}
   audioManagerPrefab: {fileID: 5133864557363618597, guid: fa87e63c5b21e9b4ab0e0bb845526a82,
     type: 3}
-  spawnManagerPrefab: {fileID: 3152690039153975394, guid: fe850a24ff53a97458a956ebfce117e9,
+  spawnManagerPrefab: {fileID: 8067778435105237829, guid: fe850a24ff53a97458a956ebfce117e9,
     type: 3}
   tileManagerPrefab: {fileID: 7738578302223303065, guid: 1520ac036caa7d14299094595f202419,
     type: 3}
