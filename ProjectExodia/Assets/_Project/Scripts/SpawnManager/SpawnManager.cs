@@ -45,6 +45,7 @@ namespace ProjectExodia
 
         void UpdateEntityPack(CountryPack country)
         {
+            print("augh");
             entityPrefabs = country.Enemies;
         }
         
