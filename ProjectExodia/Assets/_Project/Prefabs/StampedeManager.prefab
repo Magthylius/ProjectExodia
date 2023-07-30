@@ -54,3 +54,4 @@ MonoBehaviour:
     requiredExperience: 2
   - level: 4
     requiredExperience: 2
+  GameOverAudioData: {fileID: 11400000, guid: e022ac3a517bbee44beb21f1e600d96f, type: 2}

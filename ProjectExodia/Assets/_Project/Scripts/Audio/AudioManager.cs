@@ -15,7 +15,7 @@ namespace ProjectExodia
 
         public override void Initialize(GameContext gameContext)
         {
-            PlayBGM(bgmData, "BGM");
+            PlaySlapBGM();
         }
 
         public void SetVolume()
@@ -115,6 +115,12 @@ namespace ProjectExodia
         {
             sfxSource.Stop();
             bgmSource.Stop();
+        }
+        
+        //! Dirty Implementation
+        public void PlaySlapBGM()
+        {
+            PlayBGM(bgmData, "BGM");
         }
     }
     
