@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,18 +25,15 @@ namespace ProjectExodia
         private int _stampedeLevel;
         private int _stampedeExperience;
 
-        private static readonly int LevelUp = Animator.StringToHash("LevelUp");
-        private static readonly int LevelDown = Animator.StringToHash("LevelDown");
-
         public override void Initialize(GameContext gameContext)
         {
             base.Initialize(gameContext);
-            Setlevel(1);
+            SetLevel(1);
         }
 
         private void Start()
         {
-            Setlevel(1);
+            SetLevel(1);
         }
 
         private void Update()
@@ -51,7 +49,7 @@ namespace ProjectExodia
             }
         }
 
-        private void Setlevel(int amount)
+        private void SetLevel(int amount)
         {
             _stampedeLevel = amount;
             OnSetLevel?.Invoke();
@@ -62,18 +60,43 @@ namespace ProjectExodia
             if (_stampedeLevel >= levelData.Length)
             {
                 Debug.Log("Reached max level");
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().SetLoseStampede(true);
+                    StartCoroutine(StampedeRoutine());
+                    
+                    IEnumerator StampedeRoutine()
+                    {
+                        //! Arbitrary number
+                        yield return new WaitForSeconds(3f);
+                        var transition = uiManager.ShowPanel<TransitionPanel>(false);
+                        transition.BeginTransition();
+                        transition.OnFullTransition += OnTransition;
+                        
+                        void OnTransition()
+                        {
+                            transition.OnFullTransition -= OnTransition;
+                            //! done transition
+                        }
+                    }
+                }
+
+                if (GameContext.TryGetManager(out GameManager gameManager))
+                {
+                    gameManager.StopGameplay();
+                }
                 return;
             }
             _stampedeExperience++;
             
             if (_stampedeExperience >= levelData[_stampedeLevel - 1].requiredExperience)
             {
-                Setlevel(_stampedeLevel + 1);
+                SetLevel(_stampedeLevel + 1);
                 if (GameContext.TryGetManager(out UIManager uiManager))
                 {
                     uiManager.GetPanel<EffectsPanel>().LevelUpStampede();
                 }
-                
+
                 _stampedeExperience = 0;
             }
 
@@ -92,7 +115,7 @@ namespace ProjectExodia
 
             if (_stampedeExperience < 0)
             {
-                Setlevel(_stampedeLevel - 1);
+                SetLevel(_stampedeLevel - 1);
                 if (GameContext.TryGetManager(out UIManager uiManager))
                 {
                     uiManager.GetPanel<EffectsPanel>().LevelDownStampede();
