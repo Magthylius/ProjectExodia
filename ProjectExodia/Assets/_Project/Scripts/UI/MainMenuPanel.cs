@@ -22,20 +22,9 @@ namespace ProjectExodia
         {
             if (_isLoading) return;
             _isLoading = true;
-            BeginTransition();
+            StartCoroutine(Transition());
             panelAnimator.SetInteger("ButtonMode", 1);
-        }
-
-        private void OnQuitButton()
-        {
-            if (_isLoading) return;
-            _isLoading = true;
-            BeginTransition();
-            panelAnimator.SetInteger("ButtonMode", 2);
-        }
-
-        private void BeginTransition()
-        {
+            
             IEnumerator Transition()
             {
                 yield return new WaitForSeconds(1.5f);
@@ -44,8 +33,20 @@ namespace ProjectExodia
                 yield return new WaitForSeconds(1.5f);
                 UIManager.HidePanel<MainMenuPanel>();
             }
+        }
 
-            StartCoroutine(Transition());
+        private void OnQuitButton()
+        {
+            /*if (_isLoading) return;
+            _isLoading = true;
+            BeginTransition();
+            panelAnimator.SetInteger("ButtonMode", 2);
+            
+            IEnumerator Transition()
+            {
+                yield return new WaitForSeconds(1.5f);
+                Application.Quit();
+            }*/
         }
     }
 }
