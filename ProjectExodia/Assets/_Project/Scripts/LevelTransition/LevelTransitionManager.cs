@@ -15,30 +15,49 @@ namespace ProjectExodia
     
     public class LevelTransitionManager : ManagerBase
     {
+        [SerializeField, Min(1f)] private float maxDistance = 2000f;
+        
         [SerializeField] private CountryPack Malaysia;
         [SerializeField] private CountryPack Japan;
         [SerializeField] private CountryPack India;
         [SerializeField] private CountryPack Southpole;
-        
+
+        private PlayerCharacter _playerCharacter;
         private TileHandler _tileHandler;
         private int _lastCountryVisited;
 
         public static ECountry CurrentCountry;
         public static event Action<CountryPack> OnCountryChange;
         
-        
-        public override void Initialize(GameContext gameContext)
-        {
-            base.Initialize(gameContext);
-        }
-
         private void Start()
         {
             ChangeCountry();
         }
 
+        private void LateUpdate()
+        {
+            if (!_playerCharacter) return;
+
+            if (_playerCharacter.Position.z >= maxDistance)
+            {
+                ChangeCountry();
+                _playerCharacter.Teleport(Vector3.zero);
+            }
+        }
+
+        public override void Initialize(GameContext gameContext)
+        {
+            base.Initialize(gameContext);
+            if (gameContext.TryGetManager(out PlayerManager playerManager))
+            {
+                _playerCharacter = playerManager.Controller.Character;
+                
+            }
+        }
+
         public void ChangeCountry()
         {
+            Debug.Log("Country has changed");
             CurrentCountry = (ECountry)RandomCountry();
             InitiateLevelTransit();
         }
