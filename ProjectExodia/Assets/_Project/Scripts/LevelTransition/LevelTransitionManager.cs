@@ -66,7 +66,7 @@ namespace ProjectExodia
             {
                 if (GameContext.TryGetManager(out UIManager uiManager))
                 {
-                    uiManager.ShowPanel<TransitionPanel>().BeginTransition();
+                    uiManager.ShowPanel<TransitionPanel>(false).BeginTransition();
                 }
 
                 if (GameContext.TryGetManager(out GameManager gameManager))
