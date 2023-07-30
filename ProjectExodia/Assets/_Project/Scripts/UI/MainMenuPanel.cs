@@ -9,10 +9,10 @@ namespace ProjectExodia
 {
     public class MainMenuPanel : MenuPanel
     {
+        [SerializeField] private Animator panelAnimator;
         [SerializeField] private Button startButton;
         [SerializeField] private Button quitButton;
-        [SerializeField] private MMF_Player startFeedbacks;
-        [SerializeField] private MMF_Player quitFeedbacks;
+
 
         private void Awake()
         {
@@ -23,13 +23,13 @@ namespace ProjectExodia
         private void OnStartButton()
         {
             Debug.Log("Start button");
-            startFeedbacks.PlayFeedbacks();
+            panelAnimator.SetInteger("ButtonMode", 1);
         }
 
         private void OnQuitButton()
         {
             Debug.Log("Quit button");
-            quitFeedbacks.PlayFeedbacks();
+            panelAnimator.SetInteger("ButtonMode", 2);
         }
     }
 }
