@@ -6,6 +6,13 @@ namespace ProjectExodia
 {
     public class MenuPanel : MonoBehaviour
     {
+        protected UIManager UIManager;
+        
+        public virtual void Initialize(UIManager uiManager)
+        {
+            UIManager = uiManager;
+        }
+        
         public virtual void ShowPanel()
         {
             gameObject.SetActive(true);

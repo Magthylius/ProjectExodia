@@ -123,3 +123,5 @@ MonoBehaviour:
     type: 3}
   effectsPanelPrefab: {fileID: 6848241685158460272, guid: 75bad6e1304f9394785c203cb72f9de8,
     type: 3}
+  transitionPanelPrefab: {fileID: 4235326020852338727, guid: e705c3241f7f55c4ea73544526b4abef,
+    type: 3}
