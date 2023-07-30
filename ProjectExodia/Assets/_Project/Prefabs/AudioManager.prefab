@@ -32,7 +32,7 @@ Transform:
   - {fileID: 6637211328385792841}
   - {fileID: 3244869674135001557}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5133864557363618597
 MonoBehaviour:
@@ -50,6 +50,7 @@ MonoBehaviour:
   bgmSource: {fileID: 5918927329137260857}
   bgmVolume: 0
   sfxVolume: 0
+  bgmData: {fileID: 11400000, guid: f3bcd3d5cdd512944aa65e1f1d65a9fe, type: 2}
 --- !u!1 &5635436944434059471
 GameObject:
   m_ObjectHideFlags: 0

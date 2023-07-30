@@ -10,7 +10,14 @@ namespace ProjectExodia
         
         [SerializeField] private float bgmVolume;
         [SerializeField] private float sfxVolume;
-        
+
+        [SerializeField] private AudioData bgmData;
+
+        public override void Initialize(GameContext gameContext)
+        {
+            PlaySlapBGM();
+        }
+
         public void SetVolume()
         {
             PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
@@ -108,6 +115,12 @@ namespace ProjectExodia
         {
             sfxSource.Stop();
             bgmSource.Stop();
+        }
+        
+        //! Dirty Implementation
+        public void PlaySlapBGM()
+        {
+            PlayBGM(bgmData, "BGM");
         }
     }
     

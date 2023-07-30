@@ -17,6 +17,7 @@ namespace ProjectExodia
         [Header("Stampede Parameters")]
         [SerializeField] private int experienceDecay = 2;
         [SerializeField] private FLevelData[] levelData;
+        [SerializeField] private AudioData GameOverAudioData;
 
         public static event Action OnSetLevel;
         public static event Action OnAddExperience;
@@ -79,6 +80,12 @@ namespace ProjectExodia
                 if (GameContext.TryGetManager(out GameManager gameManager))
                 {
                     gameManager.StopGameplay();
+                }
+
+                if (GameContext.TryGetManager(out AudioManager audioManager))
+                {
+                    audioManager.StopBGM();
+                    audioManager.PlaySfx(GameOverAudioData, "gameover");
                 }
                 return;
             }
