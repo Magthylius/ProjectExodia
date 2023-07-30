@@ -205,6 +205,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goBananaFireObject: {fileID: 7015684422538121889}
+  passportStampingObject: {fileID: 7111436983958981013}
+  passportStampImage: {fileID: 7230233748544963747}
+  alaskaStampSprite: {fileID: 21300000, guid: 77e775c96161aa047ad17dc86f0eff39, type: 3}
+  antarcticaStampSprite: {fileID: 21300000, guid: f06cf1a149fe3fa4f98edddfbe2313b4,
+    type: 3}
+  indiaStampSprite: {fileID: 21300000, guid: 196bb7abee9b98d4ab4c55b4e6b15d7c, type: 3}
+  japanStampSprite: {fileID: 21300000, guid: 234a2d07d2be734459cf8b6b1f9fc47e, type: 3}
+  malaysiaStampSprite: {fileID: 21300000, guid: 169b4a7f74f6ed04aa9dbc30b4daad50,
+    type: 3}
 --- !u!1 &7015684422538121889
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4052507702892720468
 RectTransform:
   m_ObjectHideFlags: 0

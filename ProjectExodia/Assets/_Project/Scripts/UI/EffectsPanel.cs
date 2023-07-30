@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +36,14 @@ namespace ProjectExodia
                     case 2: passportStampImage.sprite = indiaStampSprite; break;
                     case 3: passportStampImage.sprite = japanStampSprite; break;
                     case 4: passportStampImage.sprite = malaysiaStampSprite; break;
+                }
+
+                StartCoroutine(AutoHide());
+                
+                IEnumerator AutoHide()
+                {
+                    yield return new WaitForSeconds(2f);
+                    SetPassportStamping(false);
                 }
             }
         }

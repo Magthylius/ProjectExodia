@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectExodia
@@ -16,6 +15,7 @@ namespace ProjectExodia
             IEnumerator AutoHide()
             {
                 yield return new WaitForSeconds(4.5f);
+                UIManager.GetPanel<EffectsPanel>().SetPassportStamping(true, 4);
                 UIManager.HidePanel<TransitionPanel>();
             }
         }
