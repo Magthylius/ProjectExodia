@@ -11,6 +11,7 @@ namespace ProjectExodia
         public event CharacterEvent OnBananaPickup;
 
         [SerializeField] private Animator buttBananaAnimator;
+        [SerializeField] private Animator orangUtanAnim;
         
         [SerializeField] private float bananaSlapDuration = 10f;
 
@@ -91,6 +92,7 @@ namespace ProjectExodia
             }
 
             ScoreData.SlapCount += _entitiesInRange.Count;
+            orangUtanAnim.Play("Slap");
             _entitiesInRange.Clear();
         }
 

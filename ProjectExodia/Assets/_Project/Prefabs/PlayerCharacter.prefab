@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 3841473130114714294}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &452669743430902573
 MonoBehaviour:
@@ -51,10 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttBananaAnimator: {fileID: 2240793533958538068}
+  orangUtanAnim: {fileID: 919121010283495300}
   bananaSlapDuration: 10
-  oneBananaAnimClip: {fileID: 0}
-  twoBananasAnimClip: {fileID: 0}
-  threeBananasAnimClip: {fileID: 0}
 --- !u!95 &919121010283495300
 Animator:
   serializedVersion: 7
@@ -65,7 +63,7 @@ Animator:
   m_GameObject: {fileID: 3579276781459623828}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a1e798f2dd86429468e2f7ef62af44b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 50d5f03f7d0e7214cbbf2af719221043, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
