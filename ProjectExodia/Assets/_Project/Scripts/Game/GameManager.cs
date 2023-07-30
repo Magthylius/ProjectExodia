@@ -45,6 +45,12 @@ namespace ProjectExodia
             OnMultiplierIncreased?.Invoke(CurrentMultiplier);
             //Debug.Log($"Current multiplier {CurrentMultiplier}");
         }
+
+        public static void ResetMultiplier()
+        {
+            CurrentMultiplier = 1f;
+            OnMultiplierIncreased?.Invoke(CurrentMultiplier);
+        }
     }
 
     public enum GameState

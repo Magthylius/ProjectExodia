@@ -46,6 +46,7 @@ namespace ProjectExodia
         {
             if (GameManager.GameState != GameState.Gameplay) return;
             
+            ScoreData.ResetMultiplier();
             if (_stampedeLevel >= levelData.Length)
             {
                 Debug.Log("Reached max level, ending game");
