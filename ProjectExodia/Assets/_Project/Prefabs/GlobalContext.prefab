@@ -59,3 +59,5 @@ MonoBehaviour:
     type: 3}
   stampedeManagerPrefab: {fileID: 1278363072724851348, guid: fda44ddd7a0470445b015c5263f7f30c,
     type: 3}
+  levelTransitionManager: {fileID: 8808632510285336402, guid: 54178521adff13a438f129822867aa4e,
+    type: 3}
