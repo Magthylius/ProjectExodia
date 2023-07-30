@@ -15,6 +15,6 @@ MonoBehaviour:
   patternList:
   - distanceStamp: 20
     spawnIndex: 2
-  - distanceStamp: 20
+  - distanceStamp: 15
     spawnIndex: -2
-  spawnDistanceBetweenEachPattern: 50
+  spawnDistanceBetweenEachPattern: 25
