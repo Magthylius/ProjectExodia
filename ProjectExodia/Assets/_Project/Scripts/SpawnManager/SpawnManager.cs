@@ -35,17 +35,17 @@ namespace ProjectExodia
 
         private void OnEnable()
         {
-            LevelTransitionManager.OnCountryChange += UpdateEntityPack;
+            LevelTransitionManager.OnCountryChange += OnCountryTransition;
         }
 
         private void OnDisable()
         {
-            LevelTransitionManager.OnCountryChange -= UpdateEntityPack;
+            LevelTransitionManager.OnCountryChange -= OnCountryTransition;
         }
 
-        void UpdateEntityPack(CountryPack country)
+        void OnCountryTransition(CountryPack country)
         {
-            print("augh");
+            _snapshotDistance = 0;
             entityPrefabs = country.Enemies;
         }
         
