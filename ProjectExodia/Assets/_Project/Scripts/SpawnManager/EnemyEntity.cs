@@ -7,9 +7,12 @@ namespace ProjectExodia
     {
         [SerializeField] private MMF_Player effectsPlayer;
         [SerializeField] private float despawnOffset = 10.0f;
-
+        [SerializeField] private Animator anim;
+        
         private PlayerCharacter _playerCharacter;
         private StampedeManager _stampedeManager;
+        private static readonly int Slap = Animator.StringToHash("Slap");
+
 
         private void Update()
         {
@@ -34,6 +37,7 @@ namespace ProjectExodia
         {
             if (!base.PerformSlap()) return false;
             effectsPlayer.PlayFeedbacks();
+            anim.SetTrigger(Slap);
             return true;
         }
 

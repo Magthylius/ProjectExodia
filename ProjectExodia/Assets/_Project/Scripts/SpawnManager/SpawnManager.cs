@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -31,6 +32,21 @@ namespace ProjectExodia
         private int _currentSpawnIndex = 0;
         private int _randomSpawnPatternPrefab = 0;
         private float _pawnDistanceFromGap;
+
+        private void OnEnable()
+        {
+            LevelTransitionManager.OnCountryChange += UpdateEntityPack;
+        }
+
+        private void OnDisable()
+        {
+            LevelTransitionManager.OnCountryChange -= UpdateEntityPack;
+        }
+
+        void UpdateEntityPack(CountryPack country)
+        {
+            entityPrefabs = country.Enemies;
+        }
         
         public override void Initialize(GameContext gameContext)
         {
@@ -66,6 +82,9 @@ namespace ProjectExodia
 
         private void Update()
         {
+            if (entityPrefabs == null)
+                return;
+            
             if (_playerManager.Controller.Character.transform.position.z > _snapshotDistance + spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp)
             {
                 SpawnEnemy();
