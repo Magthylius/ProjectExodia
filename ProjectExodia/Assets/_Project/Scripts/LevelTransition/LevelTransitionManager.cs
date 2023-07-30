@@ -35,12 +35,12 @@ namespace ProjectExodia
         private void Start()
         {
             ChangeCountry();
-            InitiateLevelTransit();
         }
 
         public void ChangeCountry()
         {
             CurrentCountry = (ECountry)RandomCountry();
+            InitiateLevelTransit();
         }
 
         public void InitiateLevelTransit()

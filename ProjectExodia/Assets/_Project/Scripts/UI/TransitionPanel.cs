@@ -15,7 +15,7 @@ namespace ProjectExodia
             IEnumerator AutoHide()
             {
                 yield return new WaitForSeconds(4.5f);
-                UIManager.GetPanel<EffectsPanel>().SetPassportStamping(true, 4);
+                UIManager.GetPanel<EffectsPanel>().SetPassportStamping(true);
                 UIManager.HidePanel<TransitionPanel>();
             }
         }

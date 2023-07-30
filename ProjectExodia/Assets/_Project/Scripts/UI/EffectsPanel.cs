@@ -20,22 +20,29 @@ namespace ProjectExodia
         private void Awake()
         {
             goBananaFireObject.SetActive(false);
+            LevelTransitionManager.OnCountryChange += OnCountryChange;
+        }
+
+        private void OnCountryChange(CountryPack countryPack)
+        {
+            SetPassportStamping(true);
         }
 
         public void SetGoBananaFire(bool active) => goBananaFireObject.SetActive(active);
 
-        public void SetPassportStamping(bool active, int regionType = -1)
+        public void SetPassportStamping(bool active)
         {
             passportStampingObject.SetActive(active);
             if (active)
             {
-                switch (regionType)
+                switch (LevelTransitionManager.CurrentCountry)
                 {
-                    case 0: passportStampImage.sprite = alaskaStampSprite; break;
-                    case 1: passportStampImage.sprite = antarcticaStampSprite; break;
-                    case 2: passportStampImage.sprite = indiaStampSprite; break;
-                    case 3: passportStampImage.sprite = japanStampSprite; break;
-                    case 4: passportStampImage.sprite = malaysiaStampSprite; break;
+                    case ECountry.SOUTHPOLE: passportStampImage.sprite = antarcticaStampSprite; break;
+                    case ECountry.INDIA: passportStampImage.sprite = indiaStampSprite; break;
+                    case ECountry.JAPAN: passportStampImage.sprite = japanStampSprite; break;
+                    case ECountry.MALAYSIA: passportStampImage.sprite = malaysiaStampSprite; break;
+                    
+                    default: passportStampImage.sprite = alaskaStampSprite; break;
                 }
 
                 StartCoroutine(AutoHide());
