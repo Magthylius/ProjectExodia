@@ -16,6 +16,7 @@ namespace ProjectExodia
         {
             startButton.onClick.AddListener(OnStartButton);
             quitButton.onClick.AddListener(OnQuitButton);
+            GameManager.OnGameRestart += () => _isLoading = false;
         }
 
         private void OnStartButton()
@@ -33,6 +34,8 @@ namespace ProjectExodia
                 yield return new WaitForSeconds(1.5f);
                 UIManager.ShowPanel<MainHUDPanel>(false);
                 UIManager.HidePanel<MainMenuPanel>();
+                GameManager.GameState = GameState.Gameplay;
+                panelAnimator.SetTrigger("ResetButton");
             }
         }
 

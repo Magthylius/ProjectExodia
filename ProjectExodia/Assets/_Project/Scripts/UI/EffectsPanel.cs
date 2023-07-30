@@ -8,6 +8,7 @@ namespace ProjectExodia
     {
         [SerializeField] private GameObject goBananaFireObject;
         [SerializeField] private GameObject passportStampingObject;
+        [SerializeField] private GameObject loseStampedeObject;
         
         [SerializeField] private Image passportStampImage;
         [SerializeField] private Sprite alaskaStampSprite;
@@ -15,7 +16,8 @@ namespace ProjectExodia
         [SerializeField] private Sprite indiaStampSprite;
         [SerializeField] private Sprite japanStampSprite;
         [SerializeField] private Sprite malaysiaStampSprite;
-        
+
+        [SerializeField] private Animator stampedeAnimator;
 
         private void Awake()
         {
@@ -56,5 +58,10 @@ namespace ProjectExodia
                 }
             }
         }
+
+        public void SetLoseStampede(bool active) => loseStampedeObject.SetActive(active);
+
+        public void LevelUpStampede() => stampedeAnimator.SetTrigger("LevelUp");
+        public void LevelDownStampede() => stampedeAnimator.SetTrigger("LevelDown");
     }
 }

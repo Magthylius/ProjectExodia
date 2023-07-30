@@ -41,7 +41,8 @@ namespace ProjectExodia
         {
             if (!_playerCharacter) return;
 
-            if (_playerCharacter.Position.z >= maxDistance)
+            Debug.Log(GameManager.GameState);
+            if (_playerCharacter.Position.z >= maxDistance && GameManager.GameState == GameState.Gameplay)
             {
                 ChangeCountry(true);
                 _playerCharacter.Controller.TeleportCharacter(Vector3.zero);
@@ -59,7 +60,11 @@ namespace ProjectExodia
 
         public void ChangeCountry(bool wantsTransition = false)
         {
-            if (wantsTransition) StartCoroutine(ChangeRoutine());
+            if (wantsTransition)
+            {
+                StartCoroutine(ChangeRoutine());
+                ScoreData.TotalDistance += maxDistance;
+            }
             else InitiateLevelTransit();
 
             IEnumerator ChangeRoutine()
@@ -79,6 +84,7 @@ namespace ProjectExodia
                 
                 yield return new WaitForSeconds(3f);
                 gameManager.StartGameplay();
+                GameManager.GameState = GameState.Gameplay;
             }
         }
 
@@ -87,6 +93,7 @@ namespace ProjectExodia
             Debug.Log("Country has changed");
             CurrentCountry = (ECountry)RandomCountry();
             _playerCharacter.Controller.RampMovementSpeed();
+            ScoreData.CountriesCount++;
             
             switch (CurrentCountry)
             {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,38 +24,19 @@ namespace ProjectExodia
         
         private int _stampedeLevel;
         private int _stampedeExperience;
-        private StampedeHandler _stampedeHandler;
-        private static readonly int LevelUp = Animator.StringToHash("LevelUp");
-        private static readonly int LevelDown = Animator.StringToHash("LevelDown");
 
         public override void Initialize(GameContext gameContext)
         {
             base.Initialize(gameContext);
-            gameContext.TryGetManager(out CameraManager cameraManager);
-            _stampedeHandler = cameraManager.StampedeHandler;
-
-            Setlevel(1);
+            SetLevel(1);
         }
 
         private void Start()
         {
-            Setlevel(1);
+            SetLevel(1);
         }
 
-        private void Update()
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                AddExperience();
-            }
-            
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
-            {
-                SubtractExperience();
-            }
-        }
-
-        private void Setlevel(int amount)
+        private void SetLevel(int amount)
         {
             _stampedeLevel = amount;
             OnSetLevel?.Invoke();
@@ -62,17 +44,53 @@ namespace ProjectExodia
 
         public void AddExperience()
         {
+            if (GameManager.GameState != GameState.Gameplay) return;
+            
             if (_stampedeLevel >= levelData.Length)
             {
-                Debug.Log("Reached max level");
+                Debug.Log("Reached max level, ending game");
+
+                if (GameContext.TryGetManager(out PlayerManager playerManager))
+                    ScoreData.TotalDistance += playerManager.Controller.Character.Position.z;
+                
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().SetLoseStampede(true);
+                    StartCoroutine(StampedeRoutine());
+                    
+                    IEnumerator StampedeRoutine()
+                    {
+                        //! Arbitrary number
+                        yield return new WaitForSeconds(3f);
+                        var transition = uiManager.ShowPanel<TransitionPanel>(false);
+                        transition.BeginTransition();
+                        transition.OnFullTransition += OnTransition;
+                        
+                        void OnTransition()
+                        {
+                            transition.OnFullTransition -= OnTransition;
+                            uiManager.ShowPanel<EndPanel>(false).DisplayStats();
+                        }
+                    }
+                }
+
+                GameManager.GameState = GameState.End;
+                if (GameContext.TryGetManager(out GameManager gameManager))
+                {
+                    gameManager.StopGameplay();
+                }
                 return;
             }
             _stampedeExperience++;
             
             if (_stampedeExperience >= levelData[_stampedeLevel - 1].requiredExperience)
             {
-                Setlevel(_stampedeLevel + 1);
-                _stampedeHandler.Anim.SetTrigger(LevelUp);
+                SetLevel(_stampedeLevel + 1);
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().LevelUpStampede();
+                }
+
                 _stampedeExperience = 0;
             }
 
@@ -91,8 +109,12 @@ namespace ProjectExodia
 
             if (_stampedeExperience < 0)
             {
-                Setlevel(_stampedeLevel - 1);
-                _stampedeHandler.Anim.SetTrigger(LevelDown);
+                SetLevel(_stampedeLevel - 1);
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().LevelDownStampede();
+                }
+
                 _stampedeExperience =  levelData[_stampedeLevel - 1].requiredExperience + _stampedeExperience;
             }
             
