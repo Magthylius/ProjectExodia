@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ProjectExodia
@@ -8,14 +9,17 @@ namespace ProjectExodia
     {
         [SerializeField] private Animator panelAnimator;
         [SerializeField] private Button startButton;
-        [SerializeField] private Button quitButton;
+        [SerializeField] private Button tutorialButton;
+        [SerializeField] private Button tutorialOverlay;
+        [SerializeField] private GameObject tutorialObject;
 
         private bool _isLoading = false;
         
         private void Awake()
         {
             startButton.onClick.AddListener(OnStartButton);
-            quitButton.onClick.AddListener(OnQuitButton);
+            tutorialButton.onClick.AddListener(OnTutorialButton);
+            tutorialOverlay.onClick.AddListener(OnTutorialOverlay);
             GameManager.OnGameRestart += () => _isLoading = false;
         }
 
@@ -23,6 +27,7 @@ namespace ProjectExodia
         {
             if (_isLoading) return;
             _isLoading = true;
+            tutorialObject.SetActive(false);
             StartCoroutine(Transition());
             panelAnimator.SetInteger("ButtonMode", 1);
             
@@ -39,18 +44,14 @@ namespace ProjectExodia
             }
         }
 
-        private void OnQuitButton()
+        private void OnTutorialButton()
         {
-            /*if (_isLoading) return;
-            _isLoading = true;
-            BeginTransition();
-            panelAnimator.SetInteger("ButtonMode", 2);
-            
-            IEnumerator Transition()
-            {
-                yield return new WaitForSeconds(1.5f);
-                Application.Quit();
-            }*/
+            tutorialObject.SetActive(true);
+        }
+
+        private void OnTutorialOverlay()
+        {
+            tutorialObject.SetActive(false);
         }
     }
 }
