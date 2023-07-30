@@ -31,6 +31,7 @@ namespace ProjectExodia
                 UIManager.ShowPanel<TransitionPanel>().BeginTransition();
 
                 yield return new WaitForSeconds(1.5f);
+                UIManager.ShowPanel<MainHUDPanel>(false);
                 UIManager.HidePanel<MainMenuPanel>();
             }
         }
