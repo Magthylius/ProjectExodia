@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 810b39ebdc0862f42a189af0c29c0c55, type: 3}
-  m_Name: SpawnPattern 2
+  m_Name: SpawnPattern 1
   m_EditorClassIdentifier: 
   patternList:
-  - distanceStamp: 5
-    spawnIndex: 0
-  - distanceStamp: 5
-    spawnIndex: 0
-  - distanceStamp: 5
-    spawnIndex: 0
-  spawnDistanceBetweenEachPattern: 100
+  - distanceStamp: 25
+    spawnIndex: 1
+  - distanceStamp: 25
+    spawnIndex: 2
+  - distanceStamp: 25
+    spawnIndex: -1
+  spawnDistanceBetweenEachPattern: 50
