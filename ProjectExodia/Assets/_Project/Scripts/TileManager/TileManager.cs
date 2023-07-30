@@ -19,8 +19,23 @@ namespace ProjectExodia
         private bool _disableSpawn = true;
         private int _lastPrefabIndex = 0;
         private float _lastSpawn = 0.0f;
-        
+
+        private void OnEnable()
+        {
+            LevelTransitionManager.OnCountryChange += ResetTile;
+        }
+
+        private void OnDisable()
+        {
+            LevelTransitionManager.OnCountryChange -= ResetTile;
+        }
+
         private void Start()
+        {
+            GenerateTiles();
+        }
+
+        private void GenerateTiles()
         {
             _activeTiles = new List<GameObject>();
             for (var i = 0; i < maxTileSpawn; i++)
@@ -73,9 +88,12 @@ namespace ProjectExodia
         //     return randomIndex;
         // }
 
-        private void ResetTile()
+        private void ResetTile(CountryPack country)
         {
-            throw new NotImplementedException();
+            _lastSpawn = 0;
+            _lastPrefabIndex = 0;
+            _activeTiles.Clear();
+            GenerateTiles();
         }
 
         public void SetSpawnTile(bool spawnTile) => _disableSpawn = !spawnTile;
