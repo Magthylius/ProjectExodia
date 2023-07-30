@@ -51,7 +51,6 @@ namespace ProjectExodia
             if (gameContext.TryGetManager(out PlayerManager playerManager))
             {
                 _playerCharacter = playerManager.Controller.Character;
-                
             }
         }
 
@@ -60,6 +59,7 @@ namespace ProjectExodia
             Debug.Log("Country has changed");
             CurrentCountry = (ECountry)RandomCountry();
             InitiateLevelTransit();
+            _playerCharacter.Controller.RampMovementSpeed();
         }
 
         public void InitiateLevelTransit()

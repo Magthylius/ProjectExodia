@@ -34,6 +34,7 @@ namespace ProjectExodia
 
         [Header("Settings - Player")] 
         [SerializeField] private float playerSpeed = 50;
+        [SerializeField] private float movementRamp = 5f;
         [SerializeField] private float xMovementRange = 5f;
         [SerializeField] private Vector3 spawnOffset;
         [SerializeField, Layer] private int playerLayer = 7;
@@ -191,7 +192,8 @@ namespace ProjectExodia
             else if (ExceedsDotThreshold(UpLeft)) OnPlayerSwiped?.Invoke(SwipeDirection.UpLeft);
         }
         #endregion
-        
+
+        public void RampMovementSpeed() => playerSpeed += movementRamp;
         public void SetAllowMovement(bool allowMovement) => stopMovement = !allowMovement;
     }
 }
