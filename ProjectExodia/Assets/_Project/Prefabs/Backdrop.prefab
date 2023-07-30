@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1730243310184336268}
   - component: {fileID: 6684354312193220528}
+  - component: {fileID: -1539024958322829623}
   m_Layer: 0
   m_Name: Backdrop
   m_TagString: Untagged
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1539024958322829623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3379179521627114869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c4636b398768944ab64da68500eccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -18,6 +18,7 @@ namespace ProjectExodia
         [SerializeField] private TileManager tileManagerPrefab;
         [SerializeField] private CameraManager cameraManagerPrefab;
         [SerializeField] private StampedeManager stampedeManagerPrefab;
+        [SerializeField] private LevelTransitionManager levelTransitionManager;
         
         private readonly Dictionary<Type, ManagerBase> _managerDictionary = new();
     
@@ -34,6 +35,7 @@ namespace ProjectExodia
             CreateManager(tileManagerPrefab);
             CreateManager(spawnManagerPrefab);
             CreateManager(stampedeManagerPrefab);
+            CreateManager(levelTransitionManager);
         }
 
         public bool TryGetManager<T>(out T outManager) where T : ManagerBase

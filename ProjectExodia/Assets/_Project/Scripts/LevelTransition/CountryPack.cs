@@ -6,10 +6,10 @@ using UnityEngine;
 public class CountryPack : ScriptableObject
 {
     [SerializeField] private Texture2D floorTexture;
-    [SerializeField] private Texture2D backDrop;
+    [SerializeField] private Sprite backDrop;
     [SerializeField] private List<GameObject> enemies;
 
     public Texture2D FloorTexture => floorTexture;
-    public Texture2D BackDrop => backDrop;
+    public Sprite BackDrop => backDrop;
     public List<GameObject> Enemies => enemies;
 }
