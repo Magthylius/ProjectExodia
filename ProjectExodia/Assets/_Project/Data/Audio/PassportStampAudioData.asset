@@ -15,5 +15,5 @@ MonoBehaviour:
   audioList:
   - clip: {fileID: 8300000, guid: fbcde1e7dfa460f4ebc400d927f11c2d, type: 3}
     audioName: Stamp
-    volume: 1
+    volume: 0.1
   soundPacks: []

@@ -15,5 +15,5 @@ MonoBehaviour:
   audioList:
   - clip: {fileID: 8300000, guid: b793e890bba6c3e42a1632d9980d30d7, type: 3}
     audioName: Sweep
-    volume: 1
+    volume: 0.5
   soundPacks: []
