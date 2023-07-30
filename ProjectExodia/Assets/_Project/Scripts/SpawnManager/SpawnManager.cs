@@ -46,6 +46,10 @@ namespace ProjectExodia
         void OnCountryTransition(CountryPack country)
         {
             _snapshotDistance = 0;
+            _lastEntityIndex = 0;
+            _currentSpawnIndex = 0;
+            _randomSpawnPatternPrefab = 0;
+            
             entityPrefabs = country.Enemies;
         }
         
