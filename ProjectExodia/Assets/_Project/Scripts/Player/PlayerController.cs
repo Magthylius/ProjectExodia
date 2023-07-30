@@ -54,7 +54,7 @@ namespace ProjectExodia
         
         [Header("Settings - Debug")]
         [SerializeField] private bool wantsDebug = false;
-        [SerializeField] private bool stopMovement = false;
+        [SerializeField] private bool stopMovement = true;
 
         public PlayerCharacter Character { get; private set; }
 
@@ -73,7 +73,7 @@ namespace ProjectExodia
         private static Vector2 UpRight => new(0.707106f, 0.707106f);
         private static Vector2 DownLeft => new(-0.707106f, -0.707106f);
         private static Vector2 DownRight => new(0.707106f, -0.707106f);
-
+        
         private void OnEnable()
         {
             inputHandler.OnStartTouchEvent += BeginTap;
@@ -191,5 +191,7 @@ namespace ProjectExodia
             else if (ExceedsDotThreshold(UpLeft)) OnPlayerSwiped?.Invoke(SwipeDirection.UpLeft);
         }
         #endregion
+        
+        public void SetAllowMovement(bool allowMovement) => stopMovement = !allowMovement;
     }
 }

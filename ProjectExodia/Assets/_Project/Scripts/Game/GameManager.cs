@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ProjectExodia
@@ -36,12 +37,38 @@ namespace ProjectExodia
             //Debug.Log($"Current multiplier {CurrentMultiplier}");
         }
     }
+
+    public enum GameState
+    {
+        MainMenu,
+        Gameplay,
+        Transition
+    }
     
     public class GameManager : ManagerBase
     {
         private void Awake()
         {
             ScoreData.Reset();
+        }
+
+        private void Start()
+        {
+            StopGameplay();
+        }
+
+        public void StartGameplay()
+        {
+            if (GameContext.TryGetManager(out TileManager tileManager)) tileManager.SetSpawnTile(true);
+            if (GameContext.TryGetManager(out SpawnManager spawnManager)) spawnManager.SetSpawnEntities(true);
+            if (GameContext.TryGetManager(out PlayerManager playerManager)) playerManager.Controller.SetAllowMovement(true);
+        }
+
+        public void StopGameplay()
+        {
+            if (GameContext.TryGetManager(out TileManager tileManager)) tileManager.SetSpawnTile(false);
+            if (GameContext.TryGetManager(out SpawnManager spawnManager)) spawnManager.SetSpawnEntities(false);
+            if (GameContext.TryGetManager(out PlayerManager playerManager)) playerManager.Controller.SetAllowMovement(false);
         }
     }
 }

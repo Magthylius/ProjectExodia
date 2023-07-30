@@ -12,12 +12,11 @@ namespace ProjectExodia
         [SerializeField] private float tileLength = 10.0f;
         [SerializeField] private float safeZone = 15.0f;
         [SerializeField] private int maxTileSpawn = 10;
-        [SerializeField] private bool disableSpawn = false;
 
         private Transform _playerTransform;
         private List<GameObject> _activeTiles;
-        
-        
+
+        private bool _disableSpawn = true;
         private int _lastPrefabIndex = 0;
         private float _lastSpawn = 0.0f;
         
@@ -32,7 +31,7 @@ namespace ProjectExodia
         
         private void Update()
         {
-            if (disableSpawn || !_playerTransform) return;
+            if (_disableSpawn || !_playerTransform) return;
             if (_playerTransform.position.z - safeZone > _lastSpawn - maxTileSpawn * tileLength)
             {
                 SpawnTile();
@@ -78,6 +77,8 @@ namespace ProjectExodia
         {
             throw new NotImplementedException();
         }
+
+        public void SetSpawnTile(bool spawnTile) => _disableSpawn = !spawnTile;
 
         public Vector3 GetLastSpawnLocation() => Vector3.forward * _lastSpawn;
         public float GetTileWidth() => tilePrefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds.size.x;
