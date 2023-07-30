@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: SpawnPattern 7
   m_EditorClassIdentifier: 
   patternList:
-  - distanceStamp: 10
+  - distanceStamp: 15
     spawnIndex: 5
-  - distanceStamp: 10
-    spawnIndex: 3
-  - distanceStamp: 10
+  - distanceStamp: 15
     spawnIndex: 4
-  - distanceStamp: 10
-    spawnIndex: 0
-  - distanceStamp: 10
+  - distanceStamp: 20
+    spawnIndex: 3
+  - distanceStamp: 15
     spawnIndex: -3
-  - distanceStamp: 10
+  - distanceStamp: 15
     spawnIndex: -4
+  - distanceStamp: 20
+    spawnIndex: -5
   spawnDistanceBetweenEachPattern: 25
