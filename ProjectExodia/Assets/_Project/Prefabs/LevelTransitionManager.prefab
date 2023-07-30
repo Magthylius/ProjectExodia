@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca9949f3117b6b4e87b7f078b90f94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 2000
+  maxDistance: 300
   Malaysia: {fileID: 11400000, guid: af7d21f4b0f55b844a038a745fe298f6, type: 2}
   Japan: {fileID: 11400000, guid: 9c042a16e5fc8a24ea933b74b7e34843, type: 2}
   India: {fileID: 11400000, guid: ce9539ec8a7dfa24ba18b0e53b9084e1, type: 2}
-  Southpole: {fileID: 11400000, guid: 42ae090773754bc46a3b9a05601e702f, type: 2}
+  Southpole: {fileID: 11400000, guid: a59412b05dde3c94f8ae7e7f68dcf73e, type: 2}
+  Northpole: {fileID: 11400000, guid: 42ae090773754bc46a3b9a05601e702f, type: 2}
