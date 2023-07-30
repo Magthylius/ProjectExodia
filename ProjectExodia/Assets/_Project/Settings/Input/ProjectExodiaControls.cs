@@ -44,6 +44,24 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryContact"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""23d4d045-41b6-4bcc-867a-dd00fb79a705"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryPosition"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""fe2a1e82-cb96-4c6e-9a2c-e8ce5f254354"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,6 +106,50 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PrimaryPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37c82bff-3819-49c0-9275-352a9af4b715"",
+                    ""path"": ""<Touchscreen>/touch1/press"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""070c01c2-db19-4d8c-899a-4f27049ae5bb"",
+                    ""path"": ""<Touchscreen>/touch0/press"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryContact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f15338cd-051e-4a5d-b077-f646a9dc01e4"",
+                    ""path"": ""<Touchscreen>/touch1/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07d52049-93ae-4a78-8e4b-3265fea26c99"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -932,6 +994,8 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
         m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
         m_Touch_PrimaryContact = m_Touch.FindAction("PrimaryContact", throwIfNotFound: true);
         m_Touch_PrimaryPosition = m_Touch.FindAction("PrimaryPosition", throwIfNotFound: true);
+        m_Touch_SecondaryContact = m_Touch.FindAction("SecondaryContact", throwIfNotFound: true);
+        m_Touch_SecondaryPosition = m_Touch.FindAction("SecondaryPosition", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1012,12 +1076,16 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
     private List<ITouchActions> m_TouchActionsCallbackInterfaces = new List<ITouchActions>();
     private readonly InputAction m_Touch_PrimaryContact;
     private readonly InputAction m_Touch_PrimaryPosition;
+    private readonly InputAction m_Touch_SecondaryContact;
+    private readonly InputAction m_Touch_SecondaryPosition;
     public struct TouchActions
     {
         private @ProjectExodiaControls m_Wrapper;
         public TouchActions(@ProjectExodiaControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimaryContact => m_Wrapper.m_Touch_PrimaryContact;
         public InputAction @PrimaryPosition => m_Wrapper.m_Touch_PrimaryPosition;
+        public InputAction @SecondaryContact => m_Wrapper.m_Touch_SecondaryContact;
+        public InputAction @SecondaryPosition => m_Wrapper.m_Touch_SecondaryPosition;
         public InputActionMap Get() { return m_Wrapper.m_Touch; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1033,6 +1101,12 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
             @PrimaryPosition.started += instance.OnPrimaryPosition;
             @PrimaryPosition.performed += instance.OnPrimaryPosition;
             @PrimaryPosition.canceled += instance.OnPrimaryPosition;
+            @SecondaryContact.started += instance.OnSecondaryContact;
+            @SecondaryContact.performed += instance.OnSecondaryContact;
+            @SecondaryContact.canceled += instance.OnSecondaryContact;
+            @SecondaryPosition.started += instance.OnSecondaryPosition;
+            @SecondaryPosition.performed += instance.OnSecondaryPosition;
+            @SecondaryPosition.canceled += instance.OnSecondaryPosition;
         }
 
         private void UnregisterCallbacks(ITouchActions instance)
@@ -1043,6 +1117,12 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
             @PrimaryPosition.started -= instance.OnPrimaryPosition;
             @PrimaryPosition.performed -= instance.OnPrimaryPosition;
             @PrimaryPosition.canceled -= instance.OnPrimaryPosition;
+            @SecondaryContact.started -= instance.OnSecondaryContact;
+            @SecondaryContact.performed -= instance.OnSecondaryContact;
+            @SecondaryContact.canceled -= instance.OnSecondaryContact;
+            @SecondaryPosition.started -= instance.OnSecondaryPosition;
+            @SecondaryPosition.performed -= instance.OnSecondaryPosition;
+            @SecondaryPosition.canceled -= instance.OnSecondaryPosition;
         }
 
         public void RemoveCallbacks(ITouchActions instance)
@@ -1289,6 +1369,8 @@ public partial class @ProjectExodiaControls: IInputActionCollection2, IDisposabl
     {
         void OnPrimaryContact(InputAction.CallbackContext context);
         void OnPrimaryPosition(InputAction.CallbackContext context);
+        void OnSecondaryContact(InputAction.CallbackContext context);
+        void OnSecondaryPosition(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
