@@ -52,7 +52,8 @@ MonoBehaviour:
     type: 3}
   trailRendererPrefab: {fileID: 8002561042973826676, guid: 35f307eaa43957e40a7a86ad4f84752c,
     type: 3}
-  playerSpeed: 50
+  playerSpeed: 35
+  movementRamp: 5
   xMovementRange: 5
   spawnOffset: {x: 0, y: 1.1, z: 0}
   playerLayer: 7

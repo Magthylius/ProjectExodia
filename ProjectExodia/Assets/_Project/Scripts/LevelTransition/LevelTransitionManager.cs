@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -42,8 +43,8 @@ namespace ProjectExodia
 
             if (_playerCharacter.Position.z >= maxDistance)
             {
-                ChangeCountry();
-                _playerCharacter.Teleport(Vector3.zero);
+                ChangeCountry(true);
+                _playerCharacter.Controller.TeleportCharacter(Vector3.zero);
             }
         }
 
@@ -53,19 +54,40 @@ namespace ProjectExodia
             if (gameContext.TryGetManager(out PlayerManager playerManager))
             {
                 _playerCharacter = playerManager.Controller.Character;
-                
             }
         }
 
-        public void ChangeCountry()
+        public void ChangeCountry(bool wantsTransition = false)
         {
-            Debug.Log("Country has changed");
-            CurrentCountry = (ECountry)RandomCountry();
-            InitiateLevelTransit();
+            if (wantsTransition) StartCoroutine(ChangeRoutine());
+            else InitiateLevelTransit();
+
+            IEnumerator ChangeRoutine()
+            {
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.ShowPanel<TransitionPanel>(false).BeginTransition();
+                }
+
+                if (GameContext.TryGetManager(out GameManager gameManager))
+                {
+                    gameManager.StopGameplay();
+                }
+                
+                yield return new WaitForSeconds(1.5f);
+                InitiateLevelTransit();
+                
+                yield return new WaitForSeconds(3f);
+                gameManager.StartGameplay();
+            }
         }
 
         public void InitiateLevelTransit()
         {
+            Debug.Log("Country has changed");
+            CurrentCountry = (ECountry)RandomCountry();
+            _playerCharacter.Controller.RampMovementSpeed();
+            
             switch (CurrentCountry)
             {
                 case ECountry.MALAYSIA:

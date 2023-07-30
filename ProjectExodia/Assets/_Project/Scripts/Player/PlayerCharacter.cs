@@ -14,7 +14,7 @@ namespace ProjectExodia
         
         [SerializeField] private float bananaSlapDuration = 10f;
 
-        private PlayerController _playerController;
+        public PlayerController Controller { get; private set; }
         private HashSet<EntityBase> _entitiesInRange = new();
 
         private Coroutine _bananaSlapRoutine;
@@ -79,7 +79,7 @@ namespace ProjectExodia
 
         public void Initialize(PlayerController controller)
         {
-            _playerController = controller;
+            Controller = controller;
         }
 
         public void PerformSlap()
@@ -87,7 +87,7 @@ namespace ProjectExodia
             //Debug.Log($"Slap performed, entities {_entitiesInRange.Count}");
             foreach (var entity in _entitiesInRange)
             {
-                _playerController.SlapEntity(entity);
+                Controller.SlapEntity(entity);
             }
             
             _entitiesInRange.Clear();
@@ -102,8 +102,6 @@ namespace ProjectExodia
         {
             ScoreData.IncreaseMultiplier(-ScoreData.MULTIPLIER_BASE_INCREMENT);
         }
-
-        public void Teleport(Vector3 position) => transform.position = position;
 
         public Vector3 Position => transform.position;
     }
