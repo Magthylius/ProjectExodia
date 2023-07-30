@@ -10,16 +10,18 @@ namespace ProjectExodia
         [SerializeField] private MainHUDPanel mainHUDPrefab;
         [SerializeField] private DebugPanel debugPanelPrefab;
         [SerializeField] private EffectsPanel effectsPanelPrefab;
+        [SerializeField] private TransitionPanel transitionPanelPrefab;
         
         private readonly Dictionary<Type, MenuPanel> _menuPanels = new();
         private readonly List<MenuPanel> _shownPanels = new();
 
         private void Start()
         {
-            CreatePanel(mainMenuPrefab, true);
-            CreatePanel(mainHUDPrefab);
             CreatePanel(debugPanelPrefab, true);
             CreatePanel(effectsPanelPrefab, true);
+            CreatePanel(mainHUDPrefab);
+            CreatePanel(mainMenuPrefab, true);
+            CreatePanel(transitionPanelPrefab);
         }
 
         private void CreatePanel<T>(T panelPrefab, bool showPanel = false) where T : MenuPanel
@@ -33,6 +35,7 @@ namespace ProjectExodia
 
             var panel = Instantiate(panelPrefab, transform);
             panel.gameObject.name = classType.Name;
+            panel.Initialize(this);
             if (!showPanel) panel.HidePanel();
             _menuPanels.Add(classType, panel);
         }
