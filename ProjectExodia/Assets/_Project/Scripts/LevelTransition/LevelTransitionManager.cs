@@ -10,7 +10,8 @@ namespace ProjectExodia
         MALAYSIA,
         JAPAN,
         INDIA,
-        SOUTHPOLE
+        SOUTHPOLE,
+        NORTHPOLE
     }
     
     public class LevelTransitionManager : ManagerBase
@@ -21,6 +22,7 @@ namespace ProjectExodia
         [SerializeField] private CountryPack Japan;
         [SerializeField] private CountryPack India;
         [SerializeField] private CountryPack Southpole;
+        [SerializeField] private CountryPack Northpole;
 
         private PlayerCharacter _playerCharacter;
         private TileHandler _tileHandler;
@@ -77,6 +79,9 @@ namespace ProjectExodia
                     break;
                 case ECountry.SOUTHPOLE:
                     OnCountryChange?.Invoke(Southpole);
+                    break;
+                case ECountry.NORTHPOLE:
+                    OnCountryChange?.Invoke(Northpole);
                     break;
             }
         }
