@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ProjectExodia
 {
@@ -57,6 +58,7 @@ namespace ProjectExodia
     public class GameManager : ManagerBase
     {
         public static GameState GameState;
+        public static Action OnGameRestart;
         
         private void Awake()
         {
@@ -81,6 +83,11 @@ namespace ProjectExodia
             if (GameContext.TryGetManager(out TileManager tileManager)) tileManager.SetSpawnTile(false);
             if (GameContext.TryGetManager(out SpawnManager spawnManager)) spawnManager.SetSpawnEntities(false);
             if (GameContext.TryGetManager(out PlayerManager playerManager)) playerManager.Controller.SetAllowMovement(false);
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }

@@ -26,6 +26,17 @@ namespace ProjectExodia
             CreatePanel(transitionPanelPrefab);
         }
 
+        public void ResetPanels()
+        {
+            ShowPanel<DebugPanel>(false);
+            ShowPanel<EffectsPanel>(false);
+            ShowPanel<MainMenuPanel>(false);
+
+            HidePanel<MainHUDPanel>();
+            HidePanel<EndPanel>();
+            HidePanel<TransitionPanel>();
+        }
+
         private void CreatePanel<T>(T panelPrefab, bool showPanel = false) where T : MenuPanel
         {
             var classType = typeof(T);
