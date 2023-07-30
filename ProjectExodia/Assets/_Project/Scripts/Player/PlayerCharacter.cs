@@ -89,7 +89,8 @@ namespace ProjectExodia
             {
                 Controller.SlapEntity(entity);
             }
-            
+
+            ScoreData.SlapCount += _entitiesInRange.Count;
             _entitiesInRange.Clear();
         }
 

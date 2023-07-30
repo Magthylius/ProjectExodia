@@ -48,7 +48,11 @@ namespace ProjectExodia
             
             if (_stampedeLevel >= levelData.Length)
             {
-                Debug.Log("Reached max level");
+                Debug.Log("Reached max level, ending game");
+
+                if (GameContext.TryGetManager(out PlayerManager playerManager))
+                    ScoreData.TotalDistance += playerManager.Controller.Character.Position.z;
+                
                 if (GameContext.TryGetManager(out UIManager uiManager))
                 {
                     uiManager.GetPanel<EffectsPanel>().SetLoseStampede(true);
