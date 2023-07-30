@@ -113,7 +113,7 @@ namespace ProjectExodia
             var randomIndex = _lastCountryVisited;
 
             while (randomIndex == _lastCountryVisited)
-                randomIndex = Random.Range(1, 5);
+                randomIndex = Random.Range(1, 6);
             
             _lastCountryVisited = randomIndex;
             return randomIndex;

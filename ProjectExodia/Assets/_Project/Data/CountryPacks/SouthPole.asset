@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SouthPole
   m_EditorClassIdentifier: 
   floorTexture: {fileID: 2800000, guid: d13a7cd30d1a59346b3548480370dcee, type: 3}
-  backDrop: {fileID: 21300000, guid: 2a250f831c6367446aecdf78e3b2a48d, type: 3}
+  backDrop: {fileID: 21300000, guid: 1d651c105f4f13048b6a749b5e67fec7, type: 3}
   enemies:
   - {fileID: 6493076385152381652, guid: 275b49606d1e72a4c81acb8ab5007f09, type: 3}
   - {fileID: 6493076385152381652, guid: b3135f94b17c8ac4ea152ba41ed6e492, type: 3}
