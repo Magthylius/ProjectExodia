@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d450a6b56b9f54893e6ebe7cfae355, type: 3}
   m_Name: Northpole
   m_EditorClassIdentifier: 
-  floorTexture: {fileID: 0}
-  backDrop: {fileID: 0}
+  floorTexture: {fileID: 2800000, guid: dde866b6c5251db4385ec5cba98cf7a4, type: 3}
+  backDrop: {fileID: 21300000, guid: 4425e1420f233244697d81c7a56990e2, type: 3}
   enemies: []
