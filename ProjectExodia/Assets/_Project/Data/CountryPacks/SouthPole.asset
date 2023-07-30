@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d450a6b56b9f54893e6ebe7cfae355, type: 3}
+  m_Name: SouthPole
+  m_EditorClassIdentifier: 
+  floorTexture: {fileID: 2800000, guid: d13a7cd30d1a59346b3548480370dcee, type: 3}
+  backDrop: {fileID: 21300000, guid: 2a250f831c6367446aecdf78e3b2a48d, type: 3}
+  enemies:
+  - {fileID: 6493076385152381652, guid: 275b49606d1e72a4c81acb8ab5007f09, type: 3}
+  - {fileID: 6493076385152381652, guid: b3135f94b17c8ac4ea152ba41ed6e492, type: 3}
+  - {fileID: 6493076385152381652, guid: fd7590823d10b7d4a83465a43504f70e, type: 3}
+  - {fileID: 6493076385152381652, guid: 87832ef1c30c75d438c9d1e71f1330e5, type: 3}

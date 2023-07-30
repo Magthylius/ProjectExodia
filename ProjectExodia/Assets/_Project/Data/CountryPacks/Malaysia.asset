@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTexture: {fileID: 2800000, guid: c8fc9f40dfcda8c49a148def856aa725, type: 3}
   backDrop: {fileID: 21300000, guid: 0724a87f039d7694c9dacd28994b508c, type: 3}
-  enemies: []
+  enemies:
+  - {fileID: 6815456461020009521, guid: 3aa0fe7ab9b784b4c83c9fce08677571, type: 3}
+  - {fileID: 6815456461020009521, guid: a56f3be70384cf54786d2393474a8197, type: 3}
+  - {fileID: 6815456461020009521, guid: 8bd64db0146cffe42862fe4ae01a4170, type: 3}
+  - {fileID: 6815456461020009521, guid: ddc1d447927f4294eae412662ca4c400, type: 3}
