@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -40,7 +41,7 @@ namespace ProjectExodia
 
             if (_playerCharacter.Position.z >= maxDistance)
             {
-                ChangeCountry();
+                ChangeCountry(true);
                 _playerCharacter.Teleport(Vector3.zero);
             }
         }
@@ -54,16 +55,37 @@ namespace ProjectExodia
             }
         }
 
-        public void ChangeCountry()
+        public void ChangeCountry(bool wantsTransition = false)
         {
-            Debug.Log("Country has changed");
-            CurrentCountry = (ECountry)RandomCountry();
-            InitiateLevelTransit();
-            _playerCharacter.Controller.RampMovementSpeed();
+            if (wantsTransition) StartCoroutine(ChangeRoutine());
+            else InitiateLevelTransit();
+
+            IEnumerator ChangeRoutine()
+            {
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.ShowPanel<TransitionPanel>().BeginTransition();
+                }
+
+                if (GameContext.TryGetManager(out GameManager gameManager))
+                {
+                    gameManager.StopGameplay();
+                }
+                
+                yield return new WaitForSeconds(1.5f);
+                InitiateLevelTransit();
+                
+                yield return new WaitForSeconds(3f);
+                gameManager.StartGameplay();
+            }
         }
 
         public void InitiateLevelTransit()
         {
+            Debug.Log("Country has changed");
+            CurrentCountry = (ECountry)RandomCountry();
+            _playerCharacter.Controller.RampMovementSpeed();
+            
             switch (CurrentCountry)
             {
                 case ECountry.MALAYSIA:
