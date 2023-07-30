@@ -32,6 +32,8 @@ namespace ProjectExodia
 
         public void SetPassportStamping(bool active)
         {
+            if (!passportStampingObject) return;
+            
             passportStampingObject.SetActive(active);
             if (active)
             {

@@ -207,12 +207,14 @@ MonoBehaviour:
   goBananaFireObject: {fileID: 7015684422538121889}
   passportStampingObject: {fileID: 7111436983958981013}
   passportStampImage: {fileID: 7230233748544963747}
-  alaskaStampSprite: {fileID: 21300000, guid: 77e775c96161aa047ad17dc86f0eff39, type: 3}
-  antarcticaStampSprite: {fileID: 21300000, guid: f06cf1a149fe3fa4f98edddfbe2313b4,
+  alaskaStampSprite: {fileID: 1587237367, guid: 912abd1d83461644f8db00459bde1222,
     type: 3}
-  indiaStampSprite: {fileID: 21300000, guid: 196bb7abee9b98d4ab4c55b4e6b15d7c, type: 3}
-  japanStampSprite: {fileID: 21300000, guid: 234a2d07d2be734459cf8b6b1f9fc47e, type: 3}
-  malaysiaStampSprite: {fileID: 21300000, guid: 169b4a7f74f6ed04aa9dbc30b4daad50,
+  antarcticaStampSprite: {fileID: 1872549989, guid: 912abd1d83461644f8db00459bde1222,
+    type: 3}
+  indiaStampSprite: {fileID: -904648881, guid: 912abd1d83461644f8db00459bde1222, type: 3}
+  japanStampSprite: {fileID: -2088814035, guid: 912abd1d83461644f8db00459bde1222,
+    type: 3}
+  malaysiaStampSprite: {fileID: -89084836, guid: 912abd1d83461644f8db00459bde1222,
     type: 3}
 --- !u!1 &7015684422538121889
 GameObject:
