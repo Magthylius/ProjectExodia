@@ -582,6 +582,8 @@ MonoBehaviour:
     type: 3}
   malaysiaStampSprite: {fileID: -89084836, guid: 912abd1d83461644f8db00459bde1222,
     type: 3}
+  sweepAudioData: {fileID: 11400000, guid: 601ecae4c5702164b8d7fe471adb59bb, type: 2}
+  stampAudioData: {fileID: 11400000, guid: f748f0140e977d84ab3fe53e77af8d3b, type: 2}
   stampedeAnimator: {fileID: 8262319616348486460}
 --- !u!1 &7015684422538121889
 GameObject:

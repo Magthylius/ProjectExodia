@@ -31,6 +31,7 @@ namespace ProjectExodia
 
         public static ECountry CurrentCountry;
         public static event Action<CountryPack> OnCountryChange;
+        public static Action OnCountryTransition;
         
         private void Start()
         {
@@ -81,6 +82,7 @@ namespace ProjectExodia
                 
                 yield return new WaitForSeconds(1.5f);
                 InitiateLevelTransit();
+                OnCountryTransition?.Invoke();
                 
                 yield return new WaitForSeconds(3f);
                 gameManager.StartGameplay();

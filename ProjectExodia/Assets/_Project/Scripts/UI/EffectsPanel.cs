@@ -16,16 +16,18 @@ namespace ProjectExodia
         [SerializeField] private Sprite indiaStampSprite;
         [SerializeField] private Sprite japanStampSprite;
         [SerializeField] private Sprite malaysiaStampSprite;
+        [SerializeField] private AudioData sweepAudioData;
+        [SerializeField] private AudioData stampAudioData;
 
         [SerializeField] private Animator stampedeAnimator;
 
         private void Awake()
         {
             goBananaFireObject.SetActive(false);
-            LevelTransitionManager.OnCountryChange += OnCountryChange;
+            LevelTransitionManager.OnCountryTransition += OnCountryTransition;
         }
 
-        private void OnCountryChange(CountryPack countryPack)
+        private void OnCountryTransition()
         {
             SetPassportStamping(true);
         }
@@ -35,10 +37,13 @@ namespace ProjectExodia
         public void SetPassportStamping(bool active)
         {
             if (!passportStampingObject) return;
-            
             passportStampingObject.SetActive(active);
+            Debug.Log(active);
             if (active)
             {
+                GameContext.Instance.TryGetManager(out AudioManager audioManager);
+                audioManager.PlaySfx(sweepAudioData, "Sweep");
+                
                 switch (LevelTransitionManager.CurrentCountry)
                 {
                     case ECountry.SOUTHPOLE: passportStampImage.sprite = antarcticaStampSprite; break;
@@ -49,7 +54,14 @@ namespace ProjectExodia
                     default: passportStampImage.sprite = alaskaStampSprite; break;
                 }
 
+                StartCoroutine(StampSFX());
                 StartCoroutine(AutoHide());
+
+                IEnumerator StampSFX()
+                {
+                    yield return new WaitForSeconds(0.4f);
+                    audioManager.PlaySfx(stampAudioData, "Stamp");
+                }
                 
                 IEnumerator AutoHide()
                 {
