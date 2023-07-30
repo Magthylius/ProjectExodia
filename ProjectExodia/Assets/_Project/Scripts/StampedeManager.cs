@@ -23,16 +23,13 @@ namespace ProjectExodia
         
         private int _stampedeLevel;
         private int _stampedeExperience;
-        private StampedeHandler _stampedeHandler;
+
         private static readonly int LevelUp = Animator.StringToHash("LevelUp");
         private static readonly int LevelDown = Animator.StringToHash("LevelDown");
 
         public override void Initialize(GameContext gameContext)
         {
             base.Initialize(gameContext);
-            gameContext.TryGetManager(out CameraManager cameraManager);
-            _stampedeHandler = cameraManager.StampedeHandler;
-
             Setlevel(1);
         }
 
@@ -72,7 +69,11 @@ namespace ProjectExodia
             if (_stampedeExperience >= levelData[_stampedeLevel - 1].requiredExperience)
             {
                 Setlevel(_stampedeLevel + 1);
-                _stampedeHandler.Anim.SetTrigger(LevelUp);
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().LevelUpStampede();
+                }
+                
                 _stampedeExperience = 0;
             }
 
@@ -92,7 +93,11 @@ namespace ProjectExodia
             if (_stampedeExperience < 0)
             {
                 Setlevel(_stampedeLevel - 1);
-                _stampedeHandler.Anim.SetTrigger(LevelDown);
+                if (GameContext.TryGetManager(out UIManager uiManager))
+                {
+                    uiManager.GetPanel<EffectsPanel>().LevelDownStampede();
+                }
+
                 _stampedeExperience =  levelData[_stampedeLevel - 1].requiredExperience + _stampedeExperience;
             }
             
