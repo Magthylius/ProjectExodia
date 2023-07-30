@@ -11,6 +11,8 @@ namespace ProjectExodia
         [FormerlySerializedAs("enemyEntityPrefabs")] 
         [SerializeField] private EntityBase[] entityPrefabs;
         [SerializeField] private SpawnPattern[] spawnPatterns;
+        [SerializeField] private BananaEntity banana;
+        [SerializeField] private float bananaTimer;
         [SerializeField] private float spawnDistanceBetweenEnemy = 70;
         [SerializeField] private float initialSpawnDistance;
         [SerializeField] private float yPositionOffset;
@@ -78,7 +80,7 @@ namespace ProjectExodia
                 return;
             }
             
-            // timerManager.CreateTimer(SpawnEnemy, spawnTime, true);
+            timerManager.CreateTimer(SpawnBanana, bananaTimer, true);
             _ySpawnPosition = _tileManager.transform.position.y + yPositionOffset;
             _snapshotDistance = _playerManager.Controller.Character.transform.position.z;
             _snapshotDistance = initialSpawnDistance;
@@ -127,6 +129,23 @@ namespace ProjectExodia
             _activeEntities.Add(enemy);
         }
 
+        void SpawnBanana()
+        {
+
+            var bananaEntity = Instantiate(banana, transform, true);
+            bananaEntity.Initialize(GameContext);
+            
+            var spawnIndex = Random.Range(-5, 5);
+            var segment = (_meshBoundSize - marginBoundSize) / 10;
+            var xAxisLocation = Random.Range(-randomOffsetSpawn, randomOffsetSpawn);
+            var zAxisLocation = _snapshotDistance + spawnPatterns[_randomSpawnPatternPrefab].patternList[_currentSpawnIndex].distanceStamp +
+                                spawnDistanceBetweenEnemy;
+            
+            xAxisLocation += segment * spawnIndex;
+            
+            bananaEntity.transform.position = new Vector3(xAxisLocation, _ySpawnPosition, zAxisLocation);
+        }
+        
         private void DeleteEnemy(EntityBase enemy)
         {
             if (!_activeEntities.Contains(enemy)) return;

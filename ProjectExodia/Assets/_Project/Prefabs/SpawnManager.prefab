@@ -62,9 +62,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf5c72c0f4204244db2a7575c0f68c89, type: 2}
   - {fileID: 11400000, guid: cc6ad1801cf53144c8003d77d1b795a3, type: 2}
   - {fileID: 11400000, guid: 6254fb9b23cfb444c96194263a2e4ea9, type: 2}
+  banana: {fileID: 1042406777674328891, guid: 4797b0cc191bf1d4ba40a5ddc37f3042, type: 3}
+  bananaTimer: 12
   spawnDistanceBetweenEnemy: 70
   initialSpawnDistance: 0
   yPositionOffset: 0.5
   randomOffsetSpawn: 0.5
-  disableSpawn: 0
   marginBoundSize: 2.5
