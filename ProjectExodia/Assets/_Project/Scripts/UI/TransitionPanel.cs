@@ -12,6 +12,7 @@ namespace ProjectExodia
 
         public void BeginTransition()
         {
+            GameManager.GameState = GameState.Transition;
             panelAnimator.SetTrigger("Begin");
             StartCoroutine(AutoHide());
 

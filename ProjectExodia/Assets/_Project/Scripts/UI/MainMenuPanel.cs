@@ -33,6 +33,7 @@ namespace ProjectExodia
                 yield return new WaitForSeconds(1.5f);
                 UIManager.ShowPanel<MainHUDPanel>(false);
                 UIManager.HidePanel<MainMenuPanel>();
+                GameManager.GameState = GameState.Gameplay;
             }
         }
 

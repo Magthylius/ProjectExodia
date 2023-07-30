@@ -36,19 +36,6 @@ namespace ProjectExodia
             SetLevel(1);
         }
 
-        private void Update()
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                AddExperience();
-            }
-            
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
-            {
-                SubtractExperience();
-            }
-        }
-
         private void SetLevel(int amount)
         {
             _stampedeLevel = amount;
@@ -57,6 +44,8 @@ namespace ProjectExodia
 
         public void AddExperience()
         {
+            if (GameManager.GameState != GameState.Gameplay) return;
+            
             if (_stampedeLevel >= levelData.Length)
             {
                 Debug.Log("Reached max level");
@@ -81,6 +70,7 @@ namespace ProjectExodia
                     }
                 }
 
+                GameManager.GameState = GameState.End;
                 if (GameContext.TryGetManager(out GameManager gameManager))
                 {
                     gameManager.StopGameplay();

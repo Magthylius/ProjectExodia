@@ -50,14 +50,18 @@ namespace ProjectExodia
     {
         MainMenu,
         Gameplay,
-        Transition
+        Transition,
+        End
     }
     
     public class GameManager : ManagerBase
     {
+        public static GameState GameState;
+        
         private void Awake()
         {
             ScoreData.Reset();
+            GameState = GameState.MainMenu;
         }
 
         private void Start()
